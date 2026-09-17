@@ -35,6 +35,9 @@ section > .section-cta {
 .detail-top { column-gap: clamp(32px, 6vw, 96px); }
 .module-card { padding: 30px; }
 .module-image { margin: -30px -30px 26px; }
+.modules .section-heading { display: block; }
+.modules .section-heading > p { width: min(100%, 620px); margin: 24px 0 0; }
+.modules .module-card.card-green .module-image img { object-fit: cover; }
 
 /* Las llamadas a la acción siguen exactamente el mismo ancho que .wrap. */
 .section-cta {
