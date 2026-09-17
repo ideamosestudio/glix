@@ -172,7 +172,7 @@ section > .section-cta {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   min-height: 650px;
-  background: #fff;
+  background: #f4f5f3;
 }
 .solution-copy {
   display: flex;
@@ -189,7 +189,10 @@ section > .section-cta {
 }
 .solution-copy h2 span { font-weight: 400; }
 body .solution-copy p { max-width: 540px; margin: 0; }
-.solution-copy .tic-button { --button-bg: var(--blue); --button-hover: var(--orange); margin-top: 34px; }
+.solution-copy .tic-button { --button-bg: var(--blue); --button-hover: var(--orange); }
+.feature-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 34px; }
+.feature-actions .tic-button { margin-top: 0; }
+.solution-copy .feature-secondary { --button-bg: var(--purple); --button-hover: var(--green); }
 .solution-media { min-height: 100%; overflow: hidden; }
 .solution-media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
 .solution-media .solution-sequence { height: 100%; min-height: 650px; }
@@ -210,6 +213,8 @@ body .solution-copy p { max-width: 540px; margin: 0; }
 .sales-feature .band-kicker { display: block; color: var(--ink); }
 .sales-feature h2 { margin: 32px 0 27px; font-size: clamp(45px, 4.1vw, 70px); }
 body .sales-feature p { max-width: 625px; margin-bottom: 22px; }
+.sales-feature .feature-actions .tic-button { --button-bg: var(--orange); --button-hover: var(--purple); margin-top: 0; }
+.sales-feature .feature-actions .feature-secondary { --button-bg: var(--blue); --button-hover: var(--green); }
 
 /* Contacto: fondo provisto y contraste blanco en todos los datos. */
 .contact {
@@ -246,4 +251,5 @@ body .contact p { color: #fff !important; }
   .sales-feature .sales-copy { max-width: none; }
   .sales-feature h2 { font-size: clamp(40px, 9vw, 54px); }
   .sales-feature .band-logo { width: 190px; }
+  .feature-actions { align-items: flex-start; }
 }
