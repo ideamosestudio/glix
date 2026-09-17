@@ -1,0 +1,122 @@
+/* Navegación y movimiento compartidos */
+.site-header{z-index:40}
+.primary-nav{gap:clamp(13px,1.65vw,30px)}
+.primary-nav>a:not(.nav-contact){position:relative;white-space:nowrap}
+.primary-nav>a:not(.nav-contact)::after{content:"";position:absolute;left:0;right:100%;bottom:-8px;height:2px;background:var(--purple);transition:right .28s ease}
+.primary-nav>a:not(.nav-contact):hover::after,.primary-nav>a[aria-current="page"]::after{right:0}
+.primary-nav>a[aria-current="page"]{color:var(--purple)}
+.primary-nav .nav-contact{border-radius:999px;white-space:nowrap;transition:transform .25s ease,color .25s ease,background .25s ease}
+.primary-nav .nav-contact.tic-button{border:0;min-height:43px;padding:10px 19px}
+.primary-nav .nav-contact:hover{transform:translateY(-2px)}
+.brand-dots{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.brand:hover .brand-dots{transform:rotate(135deg)}
+.brand-real-mark{display:block;position:relative;flex:none;width:31px;height:31px;overflow:hidden}
+.brand-real-mark img{position:absolute;width:114px;max-width:none;height:auto;right:0;top:-19px}
+.brand:hover .brand-real-mark{filter:drop-shadow(0 0 6px #a64c9e77)}
+.footer-brand{display:inline-flex;align-items:center;gap:8px}
+.footer-brand .footer-word{font-size:30px;color:var(--ink);margin-left:0}
+.footer-brand .brand-real-mark{width:27px;height:27px;margin-left:0}
+.footer-brand .brand-real-mark img{width:99px;top:-16.7px}
+.hero-tablet{min-height:0;overflow:visible;background:transparent;margin:26px 0 34px;align-self:center}
+.hero-tablet>img{display:block;width:min(100%,760px);height:auto;object-fit:contain;filter:drop-shadow(0 26px 32px #1c201b30);animation:tablet-enter 1s cubic-bezier(.2,.8,.2,1) both}
+.hero-tablet .art-caption{right:2%;bottom:-18px;color:#7b7d76}
+@keyframes tablet-enter{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+/* Botones tic tac: interior transparente, borde en los cuatro colores */
+.tic-button{--tic-text:var(--ink);display:inline-flex;align-items:center;justify-content:space-between;gap:23px;position:relative;isolation:isolate;min-height:51px;padding:12px 22px;border:0;border-radius:999px;background:transparent!important;color:var(--tic-text)!important;font:800 12px Manrope,Arial,sans-serif;letter-spacing:.01em;white-space:nowrap;cursor:pointer;transition:transform .25s ease,letter-spacing .25s ease}
+.tic-button::before,.tic-button::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:conic-gradient(from 35deg,var(--green),var(--purple),var(--blue),var(--orange),var(--green));padding:2px;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.tic-button::after{inset:-3px;filter:blur(10px);opacity:.28;animation:tic-glow 3.2s ease-in-out infinite}
+.tic-button span[aria-hidden]{font-size:18px;line-height:1;transition:transform .25s ease}
+.tic-button:hover{transform:translateY(-3px);letter-spacing:.025em}
+.tic-button:hover span[aria-hidden]{transform:translate(2px,-2px)}
+.tic-button:hover::after{opacity:.7}
+.tic-button:focus-visible{outline:3px solid var(--blue);outline-offset:5px}
+.tic-button.on-dark{--tic-text:#fff}
+@keyframes tic-glow{0%,100%{opacity:.22;filter:blur(9px)}50%{opacity:.56;filter:blur(13px)}}
+
+.section-cta{display:flex;align-items:center;justify-content:space-between;gap:25px;border-top:1px solid #d8dad4;padding-top:27px;margin-top:50px}
+.section-cta-title{display:flex;align-items:center;gap:14px;font:700 clamp(15px,1.45vw,20px)/1.35 Manrope,Arial,sans-serif;letter-spacing:-.025em}
+.section-cta-title::before{content:"";flex:none;width:9px;height:9px;border-radius:50%;background:var(--accent,var(--green));box-shadow:0 0 0 5px color-mix(in srgb,var(--accent,var(--green)) 13%,transparent)}
+.feature-band .section-cta,.module-cta .section-cta{border-color:#ffffff30}
+.feature-band .section-cta-title,.module-cta .section-cta-title{color:#fff}
+.module-hero .section-cta{margin-top:55px}
+.module-hero .tic-button{margin-top:5px}
+.module-intro .section-cta{margin-top:60px}
+.module-cta .button.tic-button{background:transparent;color:#fff}
+.module-cta .module-cta-inner{align-items:center}
+.module-related .section-cta{margin-top:35px}
+.hero-actions .tic-button{min-width:205px}
+.module-hero-copy a.tic-button,.feature-band a.tic-button{border-bottom:0;padding:12px 22px;margin-top:8px}
+.card-cta{width:100%;min-height:43px;padding:9px 17px;margin-top:23px;font-size:10px}
+.card-cta span[aria-hidden]{font-size:16px}
+
+/* Capturas del producto */
+.module-card{overflow:hidden}
+.module-image{display:block;height:166px;margin:-28px -26px 23px;background:#f2f2f0;overflow:hidden;border-bottom:1px solid #e3e4df}
+.module-image img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .55s cubic-bezier(.2,.8,.2,1),filter .55s ease}
+.module-card:hover .module-image img{transform:scale(1.065);filter:saturate(1.1)}
+.module-card.card-green .module-image img{object-fit:contain;background:#f7f5f8}
+.module-card.card-purple .module-image img{object-position:center 22%}
+.module-card.card-orange .module-image img{object-position:center 10%}
+.module-card .card-head{margin-top:0}
+.product-shot{margin:60px 0 0;position:relative}
+.product-shot::before{content:"";position:absolute;width:150px;height:150px;left:-22px;top:-22px;background:var(--accent,var(--blue));opacity:.12;z-index:0}
+.product-shot img{display:block;position:relative;width:100%;max-height:575px;object-fit:contain;object-position:center;background:#f8f8f6;border:1px solid #e1e2de;box-shadow:0 28px 55px #25282112}
+.product-shot figcaption{font:700 10px Manrope,Arial,sans-serif;letter-spacing:.12em;color:#757771;text-transform:uppercase;padding-top:15px}
+.phone-gallery{display:flex;align-items:stretch;justify-content:center;gap:35px;padding:35px 15px 0;background:linear-gradient(125deg,#fbf7fc,#eff8ef)}
+.phone-gallery img{width:min(40%,300px);height:440px;object-fit:contain;object-position:bottom center;border:0;background:transparent;box-shadow:none}
+.phone-gallery img:last-child{height:470px}
+.home-feature-img{display:block;width:min(100%,390px);max-height:320px;object-fit:contain;margin:0 auto;filter:drop-shadow(0 22px 35px #0004)}
+.feature-inner:has(.home-feature-img){grid-template-columns:38% 1fr}
+.feature-inner:has(.home-feature-img) .band-logo{display:block;width:190px;max-width:none;height:auto;margin:0 0 18px}
+
+/* WhatsApp siempre accesible */
+.whatsapp-float{position:fixed;z-index:35;right:24px;bottom:22px;width:60px;height:60px;display:grid;place-items:center;border-radius:50%;background:#25d366;color:#fff;box-shadow:0 10px 28px #168c4360,0 0 0 5px #fff;transition:transform .25s ease,box-shadow .25s ease}
+.whatsapp-float:hover{transform:translateY(-5px) scale(1.05);box-shadow:0 16px 34px #168c4370,0 0 0 5px #fff}
+.whatsapp-float svg{width:31px;height:31px;fill:currentColor}
+.whatsapp-float:focus-visible{outline:3px solid var(--blue);outline-offset:7px}
+
+/* Aparición de títulos y detalles sutiles */
+.js-ready .reveal{opacity:0;transform:translateY(25px);filter:blur(4px);transition:opacity .75s cubic-bezier(.2,.8,.2,1),transform .75s cubic-bezier(.2,.8,.2,1),filter .75s ease}
+.js-ready .reveal.is-visible{opacity:1;transform:translateY(0);filter:blur(0)}
+.module-card,.detail-card,.related-grid a{transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease}
+.detail-card:hover{transform:translateY(-4px);box-shadow:0 16px 35px #262a2410}
+.step-arrow,.card-bottom span{transition:transform .25s ease}
+.step:hover .step-arrow,.module-card:hover .card-bottom span{transform:translate(3px,-3px)}
+
+@media(max-width:1150px){.header-inner{height:74px}.menu-toggle{display:flex;flex-direction:column;justify-content:center;gap:6px;background:none;border:0;width:44px;height:44px;padding:8px;cursor:pointer;position:relative;z-index:51}.menu-toggle span{width:27px;height:2px;background:var(--ink);transition:transform .25s ease,opacity .25s ease}.menu-toggle[aria-expanded="true"] span:first-child{transform:translateY(4px) rotate(45deg)}.menu-toggle[aria-expanded="true"] span:last-child{transform:translateY(-4px) rotate(-45deg)}.brand{position:relative;z-index:51}.primary-nav{display:none;position:fixed;inset:0;width:100vw;height:100dvh;padding:110px clamp(24px,8vw,90px) 45px;background:#fff;overflow:auto;box-shadow:none;flex-direction:column;align-items:stretch;justify-content:center;gap:0;z-index:50}.primary-nav::before{content:"";position:absolute;left:0;top:0;width:100%;height:7px;background:linear-gradient(90deg,var(--green) 0 25%,var(--purple) 25% 50%,var(--blue) 50% 75%,var(--orange) 75%)}.primary-nav.is-open{display:flex}.primary-nav>a:not(.nav-contact){font-size:clamp(27px,5vw,52px);font-weight:800;letter-spacing:-.06em;border-bottom:1px solid #e5e7e2;padding:12px 0}.primary-nav>a:not(.nav-contact)::after{display:none}.primary-nav .nav-contact{margin-top:26px;align-self:flex-start;padding:16px 26px;font-size:16px}body.menu-open{overflow:hidden}}
+@media(max-width:760px){.section-cta{align-items:flex-start;flex-direction:column;margin-top:38px}.section-cta .tic-button{width:100%}.module-image{height:190px}.product-shot{margin-top:45px}.phone-gallery{gap:10px}.phone-gallery img{height:310px}.phone-gallery img:last-child{height:330px}.feature-inner:has(.home-feature-img){display:flex;flex-direction:column}.home-feature-img{max-height:240px}.whatsapp-float{width:55px;height:55px;right:15px;bottom:15px}.whatsapp-float svg{width:29px;height:29px}.site-footer{padding-bottom:35px}}
+@media(max-width:760px){.hero-tablet{margin:0 0 36px;min-height:0}.hero-tablet .art-caption{bottom:-16px}}
+@media(prefers-reduced-motion:reduce){.js-ready .reveal{opacity:1;transform:none;filter:none}.tic-button::after,.hero-tablet>img{animation:none}.module-image img,.module-card,.detail-card,.brand-dots,.whatsapp-float{transition:none}}
+/* Párrafos legibles en todo el sitio */
+body p {
+  font-family: Roboto, Arial, sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 300 !important;
+  color: #000 !important;
+  line-height: 1.65;
+}
+
+/* Las franjas de contenido acompañan el texto negro. */
+.feature-band,
+.module-cta {
+  background: #f7f8f5 !important;
+  color: #111 !important;
+}
+
+.feature-band h2,
+.module-cta h2,
+.feature-band .band-kicker,
+.module-cta .eyebrow,
+.module-cta .section-cta-title {
+  color: #111;
+}
+
+.feature-band .tic-button.on-dark,
+.module-cta .tic-button.on-dark {
+  --tic-text: #111;
+}
+
+.module-cta .button.tic-button {
+  color: #111 !important;
+}
