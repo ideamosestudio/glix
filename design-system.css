@@ -1,0 +1,112 @@
+/* GLIX: reglas compartidas de grilla, ritmo y acciones. Ver MANUAL-DISENO.md. */
+:root {
+  --content-width: 1320px;
+  --page-gutter: clamp(24px, 5vw, 88px);
+  --section-space: clamp(76px, 7vw, 112px);
+  --layout-gap: clamp(20px, 2vw, 32px);
+}
+
+.wrap,
+section > .section-cta {
+  width: min(calc(100% - 2 * var(--page-gutter)), var(--content-width));
+  margin-inline: auto;
+}
+
+.section-pad { padding-block: var(--section-space); }
+.module-intro,
+.detail-section,
+.module-related { padding-block: var(--section-space); }
+
+.hero {
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr);
+  gap: clamp(24px, 3vw, 48px);
+}
+.hero-copy { min-width: 0; padding-right: 0; }
+.hero-tablet { min-width: 0; margin-inline: 0; }
+.hero-tablet > img { width: 100%; max-width: 760px; }
+
+.module-grid,
+.detail-grid,
+.related-grid { gap: var(--layout-gap); }
+.intro-grid,
+.workflow-grid,
+.contact-grid,
+.module-intro-grid,
+.detail-top { column-gap: clamp(32px, 6vw, 96px); }
+.module-card { padding: 30px; }
+.module-image { margin: -30px -30px 26px; }
+
+/* Las llamadas a la acción siguen exactamente el mismo ancho que .wrap. */
+.section-cta {
+  box-sizing: border-box;
+  gap: clamp(24px, 4vw, 64px);
+  padding-top: 28px;
+  margin-top: clamp(48px, 5vw, 72px);
+}
+.section-cta-title { max-width: 680px; }
+.section-cta .tic-button { flex: none; margin-left: auto; }
+.module-cta-inner { gap: clamp(32px, 5vw, 80px); }
+
+/* Botón tic tac: un color de marca en reposo y otro al pasar el cursor. */
+.tic-button {
+  --button-bg: var(--green);
+  --button-hover: var(--purple);
+  min-height: 54px;
+  padding: 13px 24px;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: var(--button-bg) !important;
+  color: #111 !important;
+  font: 800 13px/1.25 Manrope, Arial, sans-serif;
+  letter-spacing: 0;
+  white-space: normal;
+  box-shadow: 0 9px 22px color-mix(in srgb, var(--button-bg) 20%, transparent);
+  transition: background-color .25s ease, box-shadow .25s ease,
+    letter-spacing .25s ease, transform .25s ease;
+}
+.tic-button::before,
+.tic-button::after { content: none !important; }
+.tic-button:hover {
+  background: var(--button-hover) !important;
+  color: #111 !important;
+  letter-spacing: 1px;
+  box-shadow: 0 13px 28px color-mix(in srgb, var(--button-hover) 28%, transparent);
+}
+.tic-button span[aria-hidden] { color: #111; flex: none; }
+.tic-button:focus-visible { outline: 3px solid #111; outline-offset: 4px; }
+
+/* La paleta alterna por contexto sin depender del orden de los botones. */
+.primary-nav .tic-button { --button-bg: var(--orange); --button-hover: var(--blue); }
+.hero .tic-button { --button-bg: var(--green); --button-hover: var(--purple); }
+.intro .tic-button { --button-bg: var(--blue); --button-hover: var(--orange); }
+.modules .tic-button { --button-bg: var(--purple); --button-hover: var(--green); }
+.workflow .tic-button { --button-bg: var(--orange); --button-hover: var(--blue); }
+.feature-band .tic-button { --button-bg: var(--blue); --button-hover: var(--green); }
+.contact .tic-button { --button-bg: var(--green); --button-hover: var(--purple); }
+.module-hero .tic-button { --button-bg: var(--accent); --button-hover: var(--orange); }
+.module-intro .tic-button { --button-bg: var(--blue); --button-hover: var(--green); }
+.detail-section .tic-button { --button-bg: var(--purple); --button-hover: var(--blue); }
+.detail-section.tinted .tic-button { --button-bg: var(--orange); --button-hover: var(--green); }
+.module-cta .tic-button { --button-bg: var(--green); --button-hover: var(--purple); }
+.module-related .tic-button { --button-bg: var(--blue); --button-hover: var(--orange); }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; gap: 0; }
+  .hero-copy { padding-block: 72px 24px; }
+  .hero-tablet { width: 100%; max-width: 760px; margin: 0 auto 36px; }
+}
+
+@media (max-width: 760px) {
+  :root { --page-gutter: 20px; --section-space: 72px; --layout-gap: 16px; }
+  .hero-copy { padding-block: 60px 30px; }
+  .module-card { padding: 26px; }
+  .module-image { margin: -26px -26px 23px; }
+  .section-cta { align-items: stretch; gap: 22px; padding-top: 25px; margin-top: 48px; }
+  .section-cta .tic-button { width: 100%; margin-left: 0; }
+  .module-cta-inner { display: flex; flex-direction: column; align-items: stretch; }
+  .module-cta-inner .tic-button { align-self: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tic-button { transition: none; }
+}

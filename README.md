@@ -2,9 +2,11 @@
 
 Sitio estático en HTML, CSS y JavaScript. No requiere instalación, compilación ni variables de entorno. Incluye la portada y cuatro páginas de módulos: Transporte y liquidación, Compras y proveedores, Recursos Humanos y App móvil de ventas. El contenido comercial se basa en `Glix - Presentacion General.pptx`; la información de contacto fue proporcionada para este sitio.
 
+La grilla, los márgenes, el ritmo vertical, la tipografía y los botones se documentan en [`MANUAL-DISENO.md`](MANUAL-DISENO.md) y se aplican desde `design-system.css`.
+
 Las capturas de `assets/gallery/` se basan en imágenes de la presentación. Se reemplazaron los datos visibles por ejemplos inventados y se identifican como **Datos de muestra**. Todos los botones de contacto y el acceso flotante usan WhatsApp `5491161978997`.
 
-La portada usa `assets/gallery/tablet.png` tal como fue provista. La cabecera y el pie usan el símbolo de `assets/brand/glix-blanco.png`; ese archivo tiene un lienzo blanco amplio y el logo está recortado en su borde derecho.
+La portada usa `assets/gallery/compu.png` tal como fue provista. La cabecera y el pie usan el símbolo de `assets/brand/glix-blanco.png`; ese archivo tiene un lienzo blanco amplio y el logo está recortado en su borde derecho.
 
 ## Verlo en tu computadora
 
