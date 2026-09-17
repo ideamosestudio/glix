@@ -31,10 +31,10 @@ El sitio conserva el blanco y los fondos claros como base. Los colores se usan e
 
 ## 4. Botones y llamadas a la acción
 
-- Todos los enlaces principales a WhatsApp usan `.tic-button`: forma de píldora, fondo sólido de un color de marca y texto oscuro.
-- Al pasar el cursor, el fondo cambia a **otro** color de la paleta; la separación entre letras pasa de **0 a 1 px**. Hay transición breve y elevación sutil.
-- La combinación de colores depende de la sección, no de la posición del botón. La portada usa verde/violeta; solución azul/naranja; módulos violeta/verde; proceso naranja/azul. Las páginas internas usan su acento en el hero y alternan los cuatro colores en las secciones restantes.
-- Cada CTA tiene un título que explica por qué contactar y un botón con verbo específico. Mantener el destino de WhatsApp existente y un mensaje contextual.
+- Todos los enlaces principales a WhatsApp usan `.tic-button`: forma de píldora, fondo degradado entre un color de marca y su tono oscuro, **texto blanco** y triángulo blanco hacia la derecha. El movimiento del degradado y del brillo es sutil y continuo.
+- Al pasar el cursor, el fondo cambia a **otro** color de la paleta con su tono oscuro; la separación entre letras pasa de **0 a 1 px**.
+- La combinación de colores depende de la sección. En las cuatro tarjetas de módulos se asigna exactamente un color distinto a cada botón: violeta, azul, naranja y verde. Las páginas internas alternan los colores en sus secciones.
+- Cada CTA tiene un título que explica por qué contactar y un botón con verbo específico de **una o dos palabras**. Mantener el destino de WhatsApp existente y un mensaje contextual.
 - Los botones conservan un foco visible para navegación con teclado.
 
 ## 5. Imágenes y componentes
@@ -46,4 +46,4 @@ El sitio conserva el blanco y los fondos claros como base. Los colores se usan e
 
 ## 6. Revisión antes de publicar
 
-Comprobar en escritorio y móvil: que ningún contenido toque los bordes; que todas las CTA se alineen a la grilla; que los botones cambien de color y aumenten 1 px su espaciado de letras; que el texto se lea en negro sobre fondo claro; que no haya desplazamiento horizontal; y que imágenes y enlaces carguen en GitHub Pages bajo `/glix/`.
+Comprobar en escritorio y móvil: que ningún contenido toque los bordes; que todas las CTA se alineen a la grilla; que los botones tengan texto blanco, triángulo derecho, colores distintos, brillo y cambio de color con 1 px de espaciado entre letras al hover; que los párrafos se lean en negro sobre fondo claro; que no haya desplazamiento horizontal; y que imágenes y enlaces carguen en GitHub Pages bajo `/glix/`.

@@ -51,35 +51,73 @@ section > .section-cta {
 .tic-button {
   --button-bg: var(--green);
   --button-hover: var(--purple);
+  --button-deep: color-mix(in srgb, var(--button-bg) 55%, #171717);
+  --button-hover-deep: color-mix(in srgb, var(--button-hover) 55%, #171717);
+  --button-glow: var(--button-bg);
   min-height: 54px;
   padding: 13px 24px;
   border: 2px solid transparent;
   border-radius: 999px;
-  background: var(--button-bg) !important;
-  color: #111 !important;
+  background: linear-gradient(110deg, var(--button-bg), var(--button-deep) 55%, var(--button-bg)) !important;
+  background-size: 220% 220% !important;
+  color: #fff !important;
   font: 800 13px/1.25 Manrope, Arial, sans-serif;
   letter-spacing: 0;
   white-space: normal;
-  box-shadow: 0 9px 22px color-mix(in srgb, var(--button-bg) 20%, transparent);
+  text-shadow: 0 1px 3px #0009;
+  animation: button-illumination 4s ease-in-out infinite, button-glow 3.2s ease-in-out infinite;
   transition: background-color .25s ease, box-shadow .25s ease,
     letter-spacing .25s ease, transform .25s ease;
 }
 .tic-button::before,
 .tic-button::after { content: none !important; }
 .tic-button:hover {
-  background: var(--button-hover) !important;
-  color: #111 !important;
+  --button-glow: var(--button-hover);
+  background: linear-gradient(110deg, var(--button-hover), var(--button-hover-deep) 55%, var(--button-hover)) !important;
+  color: #fff !important;
   letter-spacing: 1px;
-  box-shadow: 0 13px 28px color-mix(in srgb, var(--button-hover) 28%, transparent);
 }
-.tic-button span[aria-hidden] { color: #111; flex: none; }
+.tic-button span[aria-hidden] {
+  flex: none;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid #fff;
+  color: #fff;
+  font-size: 0 !important;
+  line-height: 0;
+}
 .tic-button:focus-visible { outline: 3px solid #111; outline-offset: 4px; }
+.module-card .card-bottom span,
+.related-grid a span {
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid var(--ink);
+  font-size: 0 !important;
+  line-height: 0;
+}
+.related-grid a span { border-left-color: var(--accent); }
+@keyframes button-illumination {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes button-glow {
+  0%, 100% { box-shadow: 0 7px 16px color-mix(in srgb, var(--button-glow) 18%, transparent); }
+  50% { box-shadow: 0 10px 27px color-mix(in srgb, var(--button-glow) 42%, transparent); }
+}
 
 /* La paleta alterna por contexto sin depender del orden de los botones. */
 .primary-nav .tic-button { --button-bg: var(--orange); --button-hover: var(--blue); }
 .hero .tic-button { --button-bg: var(--green); --button-hover: var(--purple); }
 .intro .tic-button { --button-bg: var(--blue); --button-hover: var(--orange); }
 .modules .tic-button { --button-bg: var(--purple); --button-hover: var(--green); }
+.modules .module-card.card-purple .tic-button { --button-bg: var(--purple); --button-hover: var(--blue); }
+.modules .module-card.card-blue .tic-button { --button-bg: var(--blue); --button-hover: var(--orange); }
+.modules .module-card.card-orange .tic-button { --button-bg: var(--orange); --button-hover: var(--green); }
+.modules .module-card.card-green .tic-button { --button-bg: var(--green); --button-hover: var(--purple); }
 .workflow .tic-button { --button-bg: var(--orange); --button-hover: var(--blue); }
 .feature-band .tic-button { --button-bg: var(--blue); --button-hover: var(--green); }
 .contact .tic-button { --button-bg: var(--green); --button-hover: var(--purple); }
@@ -108,5 +146,5 @@ section > .section-cta {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tic-button { transition: none; }
+  .tic-button { transition: none; animation: none; }
 }
