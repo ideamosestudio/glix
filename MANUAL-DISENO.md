@@ -39,7 +39,8 @@ El sitio conserva el blanco y los fondos claros como base. Los colores se usan e
 
 ## 5. Imágenes y componentes
 
-- La portada muestra `assets/gallery/compu.png`, con proporción original, sin recortes ni deformación.
+- La portada muestra tres cuadros de computadora (`compu-001.png` a `compu-003.png`) y la sección de ventas dos cuadros de teléfono (`phone-001.png` y `phone-002.png`). Cada secuencia cambia la imagen cada **2 segundos**, sin fundidos, conservando la misma proporción y posición de la carcasa. Con movimiento reducido se conserva el primer cuadro.
+- La solución usa una composición de dos mitades en escritorio: copy breve a la izquierda y `mock-001.png` a sangre a la derecha. La sección de contacto usa `formulario-bg.jpg` con texto blanco.
 - Las capturas de los módulos se mantienen dentro de su tarjeta y con espacio respecto del texto.
 - Una nueva sección debe reutilizar `.wrap`, el espaciado de sección y, si incluye contacto, el patrón `.section-cta`.
 - Una nueva landing debe cargar `design-system.css` **después** de `styles.css`, `enhancements.css` y `modulos.css` cuando corresponda.

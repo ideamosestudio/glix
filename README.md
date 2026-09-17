@@ -6,7 +6,7 @@ La grilla, los márgenes, el ritmo vertical, la tipografía y los botones se doc
 
 Las capturas de `assets/gallery/` se basan en imágenes de la presentación. Se reemplazaron los datos visibles por ejemplos inventados y se identifican como **Datos de muestra**. Todos los botones de contacto y el acceso flotante usan WhatsApp `5491161978997`.
 
-La portada usa `assets/gallery/compu.png` tal como fue provista. La cabecera y el pie usan el símbolo de `assets/brand/glix-blanco.png`; ese archivo tiene un lienzo blanco amplio y el logo está recortado en su borde derecho.
+La portada alterna `compu-001.png`, `compu-002.png` y `compu-003.png` cada dos segundos. La sección de ventas alterna `phone-001.png` y `phone-002.png` con el mismo intervalo; ambas secuencias cambian de cuadro sin fundido. La cabecera y el pie usan el símbolo de `assets/brand/glix-blanco.png`; ese archivo tiene un lienzo blanco amplio y el logo está recortado en su borde derecho.
 
 ## Verlo en tu computadora
 

@@ -48,3 +48,22 @@ if (!prefersReducedMotion && 'IntersectionObserver' in window) {
 
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
+
+// Cambios de cuadro sin fundido: las carcasas permanecen inmóviles.
+document.querySelectorAll('[data-frame-sequence]').forEach((sequence) => {
+  const frames = [...sequence.querySelectorAll('img')];
+  if (frames.length < 2 || prefersReducedMotion) return;
+
+  const interval = Number(sequence.dataset.interval) || 2000;
+  const ready = frames.map((frame) => frame.decode?.().catch(() => {}) ?? Promise.resolve());
+
+  Promise.all(ready).then(() => {
+    let active = 0;
+    window.setInterval(() => {
+      if (document.hidden) return;
+      frames[active].classList.remove('is-active');
+      active = (active + 1) % frames.length;
+      frames[active].classList.add('is-active');
+    }, interval);
+  });
+});
