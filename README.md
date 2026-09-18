@@ -4,7 +4,7 @@ Sitio estático en HTML, CSS y JavaScript. No requiere instalación, compilació
 
 La grilla, los márgenes, el ritmo vertical, la tipografía y los botones se documentan en [`MANUAL-DISENO.md`](MANUAL-DISENO.md) y se aplican desde `design-system.css`.
 
-Las capturas de `assets/gallery/` se basan en imágenes de la presentación. Se reemplazaron los datos visibles por ejemplos inventados y se identifican como **Datos de muestra**. Todos los botones de contacto y el acceso flotante usan WhatsApp `5491161978997`.
+Las capturas de `assets/gallery/` se basan en imágenes de la presentación. Se reemplazaron los datos visibles por ejemplos inventados y se identifican como **Datos de muestra**. Todos los botones de contacto y el acceso flotante usan WhatsApp `5491158305425`.
 
 La portada alterna `compu-001.png`, `compu-002.png` y `compu-003.png` cada dos segundos. La sección de ventas alterna `phone-001.png` y `phone-002.png` con el mismo intervalo. La sección de solución alterna cuatro imágenes `solution-01.png` a `solution-04.png` cada 1,5 segundos. Las secuencias cambian de cuadro sin fundido. La cabecera y el pie usan el símbolo de `assets/brand/glix-blanco.png`; ese archivo tiene un lienzo blanco amplio y el logo está recortado en su borde derecho.
 
