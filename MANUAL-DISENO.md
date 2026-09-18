@@ -44,6 +44,7 @@ El sitio conserva el blanco y los fondos claros como base. Los colores se usan e
 - La portada muestra tres cuadros de computadora (`compu-001.png` a `compu-003.png`) y la sección de ventas dos cuadros de teléfono (`phone-001.png` y `phone-002.png`). Cada secuencia cambia la imagen cada **2 segundos**, sin fundidos, conservando la misma proporción y posición de la carcasa. Con movimiento reducido se conserva el primer cuadro.
 - La solución usa una composición de dos mitades en escritorio: copy sobre gris suave a la izquierda y una secuencia continua de cuatro imágenes (`solution-01.png` a `solution-04.png`) a sangre a la derecha. Cambia cada **1,5 segundos**, sin fundidos. El título combina el peso bold existente con el light existente. La sección de contacto usa `formulario-bg.jpg` con texto blanco.
 - Las capturas de los módulos se mantienen dentro de su tarjeta y con espacio respecto del texto.
+- Las introducciones de las cuatro páginas internas usan dos mitades en escritorio: eyebrow, título, bajada y dos acciones a la izquierda; imagen centrada a la derecha con espacio lateral. En pantallas pequeñas se apilan texto e imagen. No se duplica la misma imagen a ancho completo debajo de esa composición.
 - Una nueva sección debe reutilizar `.wrap`, el espaciado de sección y, si incluye contacto, el patrón `.section-cta`.
 - Una nueva landing debe cargar `design-system.css` **después** de `styles.css`, `enhancements.css` y `modulos.css` cuando corresponda.
 

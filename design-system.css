@@ -356,21 +356,30 @@ body .contact p { color: #fff !important; }
   body.menu-open .site-header .brand .logo-light { display: none; }
 }
 
-/* Transporte: presentación en dos mitades con la pantalla centrada. */
-.transport-intro-grid {
+/* Presentación de módulos: texto a la izquierda e imagen centrada a la derecha. */
+.transport-intro-grid,
+.split-intro-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: clamp(36px, 5vw, 90px);
   align-items: center;
 }
-.transport-intro-copy { min-width: 0; }
-.transport-intro-copy h2 { max-width: 650px; }
-.transport-intro-copy p { max-width: 590px; }
-.transport-intro .feature-actions { margin-top: 30px; }
-.transport-intro .feature-actions .tic-button { margin-top: 0; }
-.transport-intro .feature-secondary { --button-bg: var(--purple); --button-hover: var(--orange); }
-.transport-intro-media { display: flex; align-items: center; justify-content: center; min-width: 0; padding: 30px clamp(20px, 3vw, 52px); }
-.transport-intro-media img { display: block; width: 100%; max-width: 620px; height: auto; box-shadow: 0 18px 45px #27222b16; }
+.transport-intro-copy,
+.split-intro-copy { min-width: 0; }
+.transport-intro-copy h2,
+.split-intro-copy h2 { max-width: 650px; }
+.transport-intro-copy p,
+.split-intro-copy p { max-width: 590px; }
+.transport-intro .feature-actions,
+.split-intro .feature-actions { margin-top: 30px; }
+.transport-intro .feature-actions .tic-button,
+.split-intro .feature-actions .tic-button { margin-top: 0; }
+.transport-intro .feature-secondary,
+.split-intro .feature-secondary { --button-bg: var(--purple); --button-hover: var(--orange); }
+.transport-intro-media,
+.split-intro-media { display: flex; align-items: center; justify-content: center; min-width: 0; padding: 30px clamp(20px, 3vw, 52px); }
+.transport-intro-media img,
+.split-intro-media img { display: block; width: 100%; max-width: 620px; height: auto; box-shadow: 0 18px 45px #27222b16; }
 
 /* Encabezados de secciones: eyebrow, título y bajada en orden vertical. */
 .module-intro-grid { display: block; }
@@ -383,7 +392,9 @@ body .contact p { color: #fff !important; }
 .theme-purple .module-cta-inner .tic-button { margin-top: 30px; }
 
 @media (max-width: 900px) {
-  .transport-intro-grid { grid-template-columns: 1fr; gap: 30px; }
-  .transport-intro-media { padding: 20px; }
+  .transport-intro-grid,
+  .split-intro-grid { grid-template-columns: 1fr; gap: 30px; }
+  .transport-intro-media,
+  .split-intro-media { padding: 20px; }
   .theme-purple .module-cta-inner > div { width: 100%; }
 }
