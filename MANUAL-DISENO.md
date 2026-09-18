@@ -4,11 +4,13 @@ Este documento define las reglas visuales de la home y las páginas de módulos.
 
 ## 1. Grilla y aire
 
-- Todo contenido principal vive dentro de `.wrap`. Ancho máximo: **1320 px**. Margen lateral: `clamp(24px, 5vw, 88px)` por lado; **20 px** en pantallas de hasta 760 px.
+- En móvil (hasta **760 px**), las imágenes de contenido ocupan el **ancho completo de la pantalla**, sin margen lateral. Los títulos, párrafos, etiquetas y llamadas a la acción se centran dentro de un ancho del **80%** de la pantalla: **10%** libre a cada lado. El logo, los íconos y los controles de navegación conservan su tamaño funcional.
+- Si una sección muestra dos botones en escritorio, en móvil aparece **solo el primero**. El segundo se oculta sin alterar la versión de escritorio.
+- Todo contenido principal vive dentro de `.wrap`. Ancho máximo: **1320 px**. Margen lateral: `clamp(24px, 5vw, 88px)` por lado en escritorio; **10%** a cada lado en móvil.
 - Las franjas `.section-cta` son hijas directas de la sección y usan exactamente el mismo ancho que `.wrap`. Sus textos y botones nunca llegan al borde de la ventana.
 - Las secciones principales usan `--section-space`: de **76 a 112 px** arriba y abajo en escritorio, **72 px** en móvil. La CTA se separa del contenido anterior entre **48 y 72 px** y comienza con una línea y **28 px** de espacio superior.
 - Grillas de tarjetas: separación de **20 a 32 px** en escritorio y **16 px** en móvil. Evitar que imágenes, tarjetas o botones se toquen entre sí.
-- El texto de una CTA ocupa un ancho razonable; el botón se alinea a la derecha dentro de la misma grilla. En móvil se apilan y el botón ocupa el ancho disponible.
+- El texto de una CTA ocupa un ancho razonable; el botón se alinea a la derecha dentro de la misma grilla en escritorio. En móvil se apilan y ambos quedan centrados.
 
 ## 2. Tipografía
 
