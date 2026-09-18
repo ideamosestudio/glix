@@ -98,7 +98,7 @@ html { scroll-padding-top: 90px; }
 @media (min-width: 901px) {
   .module-page .module-hero .back-link { display: none; }
   .module-page .module-hero-grid { width: min(520px, calc(44vw - var(--page-gutter))); }
-  .module-page .module-hero h1 { font-size: clamp(42px, calc(6vw - 12px), 86px); }
+  .module-page .module-hero h1 { font-size: clamp(30px, 3vw, 50px); }
 }
 
 @media (max-width: 1150px) {
