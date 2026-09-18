@@ -24,6 +24,9 @@ section > .section-cta {
 .hero-copy { min-width: 0; padding-right: 0; }
 .hero-tablet { min-width: 0; margin-inline: 0; }
 .hero-tablet > img { width: 100%; max-width: 760px; }
+@media (min-width: 761px) {
+  .hero-copy h1 { font-size: clamp(45px, 5.5vw, 80px); }
+}
 
 .module-grid,
 .detail-grid,
