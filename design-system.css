@@ -95,6 +95,11 @@ html { scroll-padding-top: 90px; }
 .module-page .module-hero h1 { font-size: clamp(51px, calc(6vw - 3px), 95px); }
 .module-page .module-hero-copy { max-width: 630px; margin-top: 32px; }
 
+@media (min-width: 901px) {
+  .module-page .module-hero .back-link { display: none; }
+  .module-page .module-hero h1 { font-size: clamp(47px, calc(6vw - 7px), 91px); }
+}
+
 @media (max-width: 1150px) {
   body { padding-top: 74px; }
   html { scroll-padding-top: 74px; }
