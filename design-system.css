@@ -99,6 +99,9 @@ html { scroll-padding-top: 90px; }
   .module-page .module-hero .back-link { display: none; }
   .module-page .module-hero-grid { width: min(520px, calc(44vw - var(--page-gutter))); }
   .module-page .module-hero h1 { font-size: clamp(48px, 4.8vw, 80px); }
+  .module-page.theme-green .module-hero h1,
+  .module-page.theme-blue .module-hero h1 { font-size: clamp(43px, 4.4vw, 68px); }
+  .module-page .module-hero .hero-title-lead { white-space: nowrap; }
 }
 
 @media (max-width: 1150px) {
@@ -338,4 +341,46 @@ body .contact p { color: #fff !important; }
   .sales-feature h2 { font-size: clamp(40px, 9vw, 54px); }
   .sales-feature .band-logo { width: 190px; }
   .feature-actions { align-items: flex-start; }
+}
+
+/* Marca original: versión oscura sobre blanco y blanca sobre navegación oscura. */
+.brand .logo-dark,
+.brand .logo-light { display: block; width: 115px; height: auto; }
+.brand .logo-light { display: none; }
+.site-header.is-scrolled .brand .logo-dark { display: none; }
+.site-header.is-scrolled .brand .logo-light { display: block; }
+.footer-brand img { display: block; width: 110px; height: auto; }
+.sales-feature .band-logo { width: 225px; height: auto; }
+@media (max-width: 1150px) {
+  body.menu-open .site-header .brand .logo-dark { display: block; }
+  body.menu-open .site-header .brand .logo-light { display: none; }
+}
+
+/* Transporte: presentación en dos mitades con la pantalla centrada. */
+.transport-intro-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(36px, 5vw, 90px);
+  align-items: center;
+}
+.transport-intro-copy { min-width: 0; }
+.transport-intro-copy h2 { max-width: 650px; }
+.transport-intro-copy p { max-width: 590px; }
+.transport-intro .feature-actions { margin-top: 30px; }
+.transport-intro .feature-actions .tic-button { margin-top: 0; }
+.transport-intro .feature-secondary { --button-bg: var(--purple); --button-hover: var(--orange); }
+.transport-intro-media { display: flex; align-items: center; justify-content: center; min-width: 0; padding: 30px clamp(20px, 3vw, 52px); }
+.transport-intro-media img { display: block; width: 100%; max-width: 620px; height: auto; box-shadow: 0 18px 45px #27222b16; }
+
+/* Texto explicativo debajo de cada título de la landing de Transporte. */
+.theme-purple .detail-top { display: block; }
+.theme-purple .detail-top > p { max-width: 680px; margin: 24px 0 0; }
+.theme-purple .module-cta-inner { display: block; }
+.theme-purple .module-cta-inner > div { width: min(650px, calc(50vw - var(--page-gutter))); }
+.theme-purple .module-cta-inner .tic-button { margin-top: 30px; }
+
+@media (max-width: 900px) {
+  .transport-intro-grid { grid-template-columns: 1fr; gap: 30px; }
+  .transport-intro-media { padding: 20px; }
+  .theme-purple .module-cta-inner > div { width: 100%; }
 }
