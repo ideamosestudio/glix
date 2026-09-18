@@ -14,6 +14,7 @@ Este documento define las reglas visuales de la home y las páginas de módulos.
 
 - Títulos y botones: **Manrope**, usando pesos fuertes para jerarquía y pesos regulares en palabras de contraste.
 - El título de la portada de la home usa `clamp(45px, 5.5vw, 80px)` en desktop (desde 761 px de ancho). Este rango no modifica las portadas internas ni el tamaño móvil.
+- En ese título, solo «gestionar tu empresa» usa Manrope 800; «Una forma más clara de» usa Manrope 400.
 - Párrafos: **Roboto Light 300, 15 px, negro `#000`**, con interlineado de 1,65. El fondo de las secciones con párrafos debe ser claro para conservar legibilidad.
 - Los títulos pueden animarse al entrar en pantalla, pero la lectura y el orden visual tienen prioridad. Respetar `prefers-reduced-motion`.
 - En los encabezados de sección con bajada, el orden es **eyebrow, título y párrafo debajo del título**, alineados al mismo margen izquierdo. El título puede ocupar el ancho disponible de la grilla; la bajada se limita a **680 px** para facilitar la lectura y se separa **24 px** del título. Las tarjetas o bloques de contenido comienzan debajo de todo el encabezado. Esta regla se aplica en la home y en todas las páginas internas; no se reparte el título y el párrafo en columnas opuestas.

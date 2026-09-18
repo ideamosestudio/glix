@@ -22,6 +22,8 @@ section > .section-cta {
   gap: clamp(24px, 3vw, 48px);
 }
 .hero-copy { min-width: 0; padding-right: 0; }
+.hero-copy h1 { font-weight: 400; }
+.hero-copy h1 strong { font-weight: 800; }
 .hero-tablet { min-width: 0; margin-inline: 0; }
 .hero-tablet > img { width: 100%; max-width: 760px; }
 @media (min-width: 761px) {
