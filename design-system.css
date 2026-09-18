@@ -39,6 +39,83 @@ section > .section-cta {
 .modules .section-heading > p { width: min(100%, 620px); margin: 24px 0 0; }
 .modules .module-card.card-green .module-image img { object-fit: cover; }
 
+/* Barra fija: cristal claro al inicio y superficie oscura al desplazarse. */
+body { padding-top: 90px; }
+html { scroll-padding-top: 90px; }
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  background: rgb(255 255 255 / 82%);
+  border-bottom: 1px solid rgb(255 255 255 / 55%);
+  box-shadow: 0 8px 30px rgb(20 24 26 / 6%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  backdrop-filter: blur(18px) saturate(150%);
+  transition: background-color .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+.site-header.is-scrolled {
+  background: rgb(27 28 32 / 94%);
+  border-bottom-color: rgb(255 255 255 / 12%);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 20%);
+}
+.site-header.is-scrolled .brand-name,
+.site-header.is-scrolled .brand-x,
+.site-header.is-scrolled .primary-nav > a:not(.nav-contact) { color: #fff; }
+.site-header.is-scrolled .primary-nav > a:not(.nav-contact):hover,
+.site-header.is-scrolled .primary-nav > a[aria-current="page"] { color: #e4a7e0; }
+.site-header.is-scrolled .menu-toggle span { background: #fff; }
+
+/* Portadas internas: foto a sangre y silueta blanca del material provisto. */
+.module-page .module-hero {
+  min-height: 700px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  border-bottom: 0;
+  isolation: isolate;
+}
+.module-page .module-hero::after { content: none; }
+.module-hero-art {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  width: auto;
+  height: 100%;
+  pointer-events: none;
+}
+.module-page .module-hero .wrap { padding-block: 100px 80px; }
+.module-page .module-hero .back-link {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  margin: 0;
+}
+.module-page .module-hero-grid { display: block; width: min(58%, 760px); }
+.module-page .module-hero h1 { font-size: clamp(51px, calc(6vw - 3px), 95px); }
+.module-page .module-hero-copy { max-width: 630px; margin-top: 32px; }
+
+@media (max-width: 1150px) {
+  body { padding-top: 74px; }
+  html { scroll-padding-top: 74px; }
+  .site-header.is-scrolled .primary-nav.is-open > a:not(.nav-contact) { color: var(--ink); }
+  .site-header.is-scrolled .primary-nav.is-open > a[aria-current="page"] { color: var(--purple); }
+  body.menu-open .site-header { background: #fff; }
+  body.menu-open .site-header .brand-name,
+  body.menu-open .site-header .brand-x { color: var(--ink); }
+  body.menu-open .site-header .menu-toggle span { background: var(--ink); }
+}
+@media (max-width: 900px) {
+  .module-page .module-hero { flex-direction: column; min-height: 0; }
+  .module-page .module-hero .wrap { padding-block: 86px 42px; }
+  .module-page .module-hero-grid { width: 100%; }
+  .module-page .module-hero h1 { font-size: clamp(47px, calc(10vw - 3px), 69px); }
+  .module-hero-art { position: relative; z-index: 0; display: block; width: 100%; height: auto; margin-top: -28px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header { transition: none; }
+}
+
 /* Las llamadas a la acción siguen exactamente el mismo ancho que .wrap. */
 .section-cta {
   box-sizing: border-box;
