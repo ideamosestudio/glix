@@ -4,7 +4,7 @@ Este documento define las reglas visuales de la home y las páginas de módulos.
 
 ## 1. Grilla y aire
 
-- En móvil (hasta **760 px**), las imágenes de contenido ocupan el **ancho completo de la pantalla**, sin margen lateral. Los títulos, párrafos, etiquetas y llamadas a la acción se centran dentro de un ancho del **80%** de la pantalla: **10%** libre a cada lado. El logo, los íconos y los controles de navegación conservan su tamaño funcional.
+- En móvil (hasta **760 px**), los títulos, párrafos, etiquetas y llamadas a la acción se centran dentro de un ancho del **80%** de la pantalla: **10%** libre a cada lado. Las imágenes conservan las proporciones y tamaños de cada componente; no se fuerzan al ancho de la pantalla.
 - Si una sección muestra dos botones en escritorio, en móvil aparece **solo el primero**. El segundo se oculta sin alterar la versión de escritorio.
 - Todo contenido principal vive dentro de `.wrap`. Ancho máximo: **1320 px**. Margen lateral: `clamp(24px, 5vw, 88px)` por lado en escritorio; **10%** a cada lado en móvil.
 - Las franjas `.section-cta` son hijas directas de la sección y usan exactamente el mismo ancho que `.wrap`. Sus textos y botones nunca llegan al borde de la ventana.

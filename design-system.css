@@ -404,9 +404,8 @@ body .contact p { color: #fff !important; }
   .theme-purple .module-cta-inner > div { width: 100%; }
 }
 
-/* Móvil: medios a sangre, textos centrados con 10% de margen y una sola CTA. */
+/* Móvil: textos centrados con 10% de margen y una sola CTA. */
 @media (max-width: 760px) {
-  body { overflow-x: clip; }
   .wrap,
   section > .section-cta { width: 80%; }
   .site-header .wrap { width: calc(100% - 40px); }
@@ -430,41 +429,13 @@ body .contact p { color: #fff !important; }
   .workflow-title > p,
   body .solution-copy p,
   body .sales-feature p { margin-inline: auto; }
-  .hero-tablet,
-  .sales-feature .phone-sequence,
-  .transport-intro-media,
-  .split-intro-media {
-    width: 100vw;
-    max-width: none;
-    margin-left: calc(50% - 50vw);
-    margin-right: 0;
-  }
-  .hero-tablet .desktop-sequence,
-  .sales-feature .phone-sequence { max-width: none; }
-  .transport-intro-media,
-  .split-intro-media { padding: 0; }
-  .transport-intro-media img,
-  .split-intro-media img { width: 100%; max-width: none; box-shadow: none; }
-  .product-shot {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: 0;
-  }
-  .product-shot img { width: 100%; max-height: none; }
-  .product-shot figcaption { padding-inline: 10vw; }
-  .module-hero-art { margin-top: 0; }
   .module-page .module-hero .back-link {
     left: 50%;
     transform: translateX(-50%);
     white-space: nowrap;
   }
-  .module-card { padding-inline: 0; overflow: visible; border-inline: 0; }
-  .module-image {
-    width: 100vw;
-    height: clamp(210px, 60vw, 330px);
-    margin-left: calc(50% - 50vw);
-    margin-right: 0;
-  }
+  .module-card { padding-inline: 0; border-inline: 0; }
+  .module-image { width: 100%; height: 190px; margin: 0 0 23px; }
   .module-card .card-head,
   .module-card .card-bottom { justify-content: center; gap: 16px; }
   .detail-card { padding-inline: 0; border-inline: 0 !important; }
