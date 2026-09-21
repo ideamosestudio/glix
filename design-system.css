@@ -289,8 +289,16 @@ body .solution-copy p { max-width: 540px; margin: 0; }
 .solution-copy .feature-secondary { --button-bg: var(--purple); --button-hover: var(--green); }
 .solution-media { min-height: 100%; overflow: hidden; }
 .solution-media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
-.solution-media .solution-sequence { height: 100%; min-height: 650px; }
-.solution-media .solution-sequence img { position: absolute; }
+.solution-media .solution-still { height: 100%; min-height: 650px; overflow: hidden; }
+.solution-media .solution-still img {
+  transform: scale(1.015);
+  animation: solution-drift 14s ease-in-out infinite alternate;
+  transform-origin: 52% 48%;
+}
+@keyframes solution-drift {
+  from { transform: scale(1.015) translate3d(0, 0, 0); }
+  to { transform: scale(1.055) translate3d(-.7%, -.35%, 0); }
+}
 
 /* Ventas móviles: proporción y disposición del mockup enviado. */
 .sales-feature { background: #fff !important; color: var(--ink); }
@@ -331,7 +339,7 @@ body .contact p { color: #fff !important; }
   .solution-showcase { grid-template-columns: 1fr; }
   .solution-copy { padding: 76px var(--page-gutter); }
   .solution-media { height: min(57vw, 470px); min-height: 0; }
-  .solution-media .solution-sequence { min-height: 0; }
+  .solution-media .solution-still { min-height: 0; }
   .sales-feature .feature-inner { gap: 45px; grid-template-columns: minmax(0, .43fr) minmax(0, .57fr); }
   .sales-feature .phone-sequence { max-width: 290px; }
 }
