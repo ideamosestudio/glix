@@ -21,12 +21,15 @@ section > .section-cta {
   grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr);
   gap: clamp(24px, 3vw, 48px);
 }
+.hero-shell { background: #fff; overflow: hidden; }
 .hero-copy { min-width: 0; padding-right: 0; }
 .hero-copy h1 { font-weight: 400; }
 .hero-copy h1 strong { font-weight: 800; }
 .hero-tablet { min-width: 0; margin-inline: 0; }
 .hero-tablet > img { width: 100%; max-width: 760px; }
 @media (min-width: 761px) {
+  .hero-shell .hero { min-height: 0; }
+  .hero-shell .hero-copy { padding-bottom: 0; }
   .hero-copy h1 { font-size: clamp(45px, 5.5vw, 80px); }
 }
 
