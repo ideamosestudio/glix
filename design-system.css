@@ -32,6 +32,9 @@ section > .section-cta {
   .hero-shell .hero-copy { padding-bottom: 0; }
   .hero-copy h1 { font-size: clamp(45px, 5.5vw, 80px); }
 }
+@media (min-width: 901px) {
+  .hero-shell .hero-tablet { align-self: end; margin: 0; }
+}
 
 /* Clientes: cinta continua, monocromática y sin tarjetas. */
 .client-marquee {
