@@ -89,6 +89,7 @@ section > .section-cta {
   filter: grayscale(1);
   opacity: .56;
 }
+.client-marquee__group img.client-logo-aquapuel { transform: scale(.8); }
 @keyframes client-marquee-scroll {
   to { transform: translate3d(-50%, 0, 0); }
 }
