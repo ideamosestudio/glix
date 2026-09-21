@@ -33,7 +33,13 @@ section > .section-cta {
   .hero-copy h1 { font-size: clamp(45px, 5.5vw, 80px); }
 }
 @media (min-width: 901px) {
-  .hero-shell .hero-tablet { align-self: end; margin: 0; }
+  /* El 10% inferior del PNG es sombra: compensamos su caja para alinear el chasis. */
+  .hero-shell .hero-tablet {
+    align-self: end;
+    margin: 0;
+    transform: scale(1.11);
+    transform-origin: center top;
+  }
 }
 
 /* Clientes: cinta continua, monocromática y sin tarjetas. */
