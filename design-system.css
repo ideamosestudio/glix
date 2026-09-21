@@ -36,7 +36,7 @@ section > .section-cta {
   min-width: 0;
   max-width: 100%;
   overflow: hidden;
-  margin-top: 48px;
+  padding-block: 26px;
 }
 .client-marquee__viewport {
   overflow: hidden;
@@ -53,21 +53,21 @@ section > .section-cta {
   display: flex;
   flex: none;
   align-items: center;
-  gap: clamp(28px, 3vw, 48px);
-  padding-right: clamp(28px, 3vw, 48px);
+  gap: clamp(48px, 6vw, 96px);
+  padding-right: clamp(48px, 6vw, 96px);
 }
 .client-marquee__group span {
   display: grid;
   place-items: center;
-  width: clamp(112px, 9vw, 142px);
-  height: 46px;
+  width: clamp(145px, 13vw, 205px);
+  height: 56px;
 }
 .client-marquee__group img {
   display: block;
   width: auto;
   max-width: 100%;
   height: auto;
-  max-height: 43px;
+  max-height: 52px;
   filter: grayscale(1);
   opacity: .56;
 }
@@ -511,7 +511,7 @@ body .contact p { color: #fff !important; }
   .footer-inner p { width: auto; }
   .footer-inner > a:last-child { margin-left: 0; }
   .primary-nav.is-open { align-items: center; text-align: center; }
-  .client-marquee { margin-top: 38px; }
+  .client-marquee { padding-block: 22px; }
   .client-marquee__group { gap: 34px; padding-right: 34px; }
   .client-marquee__group span { width: 138px; height: 44px; }
   .client-marquee__group img { max-height: 42px; }
