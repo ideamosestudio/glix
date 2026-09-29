@@ -72,14 +72,18 @@ def main():
         # Reach this machine's TLS virtual host, independently of public DNS.
         import socket
         connection=http.client.HTTPSConnection('glixerp.com',timeout=15,context=ssl.create_default_context())
-        connection._create_connection=lambda address,timeout,source_address=None:socket.create_connection(('127.0.0.1',443),timeout,source_address)
+        connection._create_connection=lambda address,timeout,source_address=None:socket.create_connection(('167.250.5.104',443),timeout,source_address)
         connection.request('GET','/index.html?glix_verify='+manifest['revision'],headers={'Accept-Encoding':'gzip','Cache-Control':'no-cache'})
         response=connection.getresponse();body=response.read();headers=dict(response.getheaders())
         if response.status!=200:raise RuntimeError('Origin returned '+str(response.status))
         import gzip
         if response.getheader('Content-Encoding')=='gzip':body=gzip.decompress(body)
         if hashlib.sha256(body).hexdigest()!=manifest['files']['index.html']:raise RuntimeError('Origin content mismatch')
-        report={'origin_status':response.status,'content_verified':True,'headers':headers}
+        backend=http.client.HTTPConnection('127.0.0.1',81,timeout=15)
+        backend.request('GET','/index.html',headers={'Host':'glixerp.com','Accept-Encoding':'gzip'})
+        back=backend.getresponse();back.read()
+        report={'origin_status':response.status,'content_verified':True,'headers':headers,'apache_status':back.status,'apache_headers':dict(back.getheaders())}
+        if back.status>=500:raise RuntimeError('Apache configuration failed')
         (state/'web-verification.json').write_text(json.dumps(report,indent=2))
         print(json.dumps(report))
     except Exception:
