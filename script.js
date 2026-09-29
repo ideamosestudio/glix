@@ -57,21 +57,66 @@ if (!prefersReducedMotion && 'IntersectionObserver' in window) {
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
 
-// Cambios de cuadro sin fundido: las carcasas permanecen inmóviles.
+// Only animate visible sequences; stop timers in background tabs and reduced motion.
+const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 document.querySelectorAll('[data-frame-sequence]').forEach((sequence) => {
   const frames = [...sequence.querySelectorAll('img')];
-  if (frames.length < 2 || prefersReducedMotion) return;
+  if (frames.length < 2) return;
+  const requestedInterval = Number(sequence.dataset.interval);
+  const interval = Number.isFinite(requestedInterval) && requestedInterval >= 1000
+    ? requestedInterval : 2000;
+  let active = 0;
+  let visible = false;
+  let timer;
 
-  const interval = Number(sequence.dataset.interval) || 2000;
-  const ready = frames.map((frame) => frame.decode?.().catch(() => {}) ?? Promise.resolve());
+  function stop() {
+    window.clearInterval(timer);
+    timer = undefined;
+  }
 
-  Promise.all(ready).then(() => {
-    let active = 0;
-    window.setInterval(() => {
-      if (document.hidden) return;
+  function updatePlayback() {
+    stop();
+    if (motionPreference.matches) {
+      frames.forEach((frame, index) => frame.classList.toggle('is-active', index === 0));
+      active = 0;
+      return;
+    }
+    if (!visible || document.hidden) return;
+    timer = window.setInterval(() => {
+      const next = (active + 1) % frames.length;
+      // Keep the current frame when another image has not loaded or failed.
+      if (!frames[next].complete || !frames[next].naturalWidth) return;
       frames[active].classList.remove('is-active');
-      active = (active + 1) % frames.length;
-      frames[active].classList.add('is-active');
+      frames[next].classList.add('is-active');
+      active = next;
     }, interval);
-  });
+  }
+
+  if ('IntersectionObserver' in window) {
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      updatePlayback();
+    });
+    visibilityObserver.observe(sequence);
+  } else {
+    visible = true;
+    updatePlayback();
+  }
+  document.addEventListener('visibilitychange', updatePlayback);
+  motionPreference.addEventListener('change', updatePlayback);
+  window.addEventListener('pagehide', stop);
+  window.addEventListener('pageshow', updatePlayback);
 });
+
+// Pause decorative animation outside the viewport without changing its visible design.
+if ('IntersectionObserver' in window) {
+  const animationObserver = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting }) => {
+      target.classList.toggle('animation-paused', !isIntersecting);
+    });
+  });
+  document.querySelectorAll('.tic-button, .client-marquee__track, .solution-still img').forEach((target) => {
+    target.classList.add('animation-paused');
+    animationObserver.observe(target);
+  });
+}

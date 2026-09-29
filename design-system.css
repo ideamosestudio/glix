@@ -308,7 +308,7 @@ html { scroll-padding-top: 90px; }
   .tic-button { transition: none; animation: none; }
 }
 
-/* Secuencias de cuadros: los PNG comparten exactamente el mismo encuadre. */
+/* Secuencias de cuadros: los cuadros comparten exactamente el mismo encuadre. */
 .frame-sequence { position: relative; isolation: isolate; width: 100%; }
 .frame-sequence img {
   position: absolute;
@@ -384,7 +384,7 @@ body .sales-feature p { max-width: 625px; margin-bottom: 22px; }
 
 /* Contacto: fondo provisto y contraste blanco en todos los datos. */
 .contact {
-  background: linear-gradient(110deg, #100a3470, #120c2a66), url('assets/gallery/formulario-bg.jpg') center / cover no-repeat;
+  background: linear-gradient(110deg, #100a3470, #120c2a66), url('assets/gallery/formulario-bg.webp') center / cover no-repeat;
   color: #fff;
 }
 .contact h2,
@@ -539,3 +539,14 @@ body .contact p { color: #fff !important; }
 @media (prefers-reduced-motion: reduce) {
   .client-marquee__track { animation-play-state: paused; }
 }
+
+/* Replaces inline styles for Content Security Policy. */
+.font-regular { font-weight: 400; }
+
+/* Maintain readable contrast on the light section backgrounds. */
+.step > span:first-child { color: #3a6aa8; }
+.site-footer .footer-inner > span { color: #555950; font-size: 14px; }
+
+.animation-paused,
+.animation-paused::before,
+.animation-paused::after { animation-play-state: paused !important; }

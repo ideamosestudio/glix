@@ -40,3 +40,13 @@ Después de editar el sitio, ejecutá `git add .`, `git commit -m "Actualizar si
 ### Dominio propio, opcional
 
 Si más adelante querés usar un dominio propio, configuralo en **Settings → Pages → Custom domain** y agregá los registros DNS que indique GitHub. No agregues un archivo `CNAME` hasta conocer el dominio exacto.
+
+## Seguridad y rendimiento (septiembre de 2026)
+
+Consultar SECURITY.md. Validar con `python scripts/check-site.py` y `node --check script.js`.
+
+Se optimizaron 27 recursos gráficos: 8.914.138 a 2.071.560 bytes (76,76 % menos). Es el total de archivos únicos, no una puntuación PageSpeed ni la transferencia inicial de una página. Capturas y logos usan WebP sin pérdida; fotos usan calidad 88. Se conservan los originales para edición.
+
+Las secuencias de computadora y teléfono conservan sus dos segundos y se pausan fuera de pantalla, en segundo plano o con movimiento reducido. La sección de solución actual es una imagen fija. La marca usa glix-real-negro.webp y glix-real-blanco.webp. Estas descripciones actualizan las referencias históricas de imágenes anteriores de este documento.
+
+También se incluyen versiones de imágenes de 640 px seleccionadas mediante srcset, fuentes locales con sus licencias OFL, robots.txt y sitemap.xml. Los efectos decorativos se pausan fuera de pantalla.
