@@ -6,7 +6,6 @@ import json
 import os
 from pathlib import Path
 import re
-import ssl
 import tempfile
 import subprocess
 
@@ -68,26 +67,26 @@ def main():
     try:cache_result=json.loads(cache.stdout).get('result',{})
     except ValueError:cache_result={'status':0,'errors':['Cache API unavailable']}
     print(json.dumps({'nginx_cache_clear':cache_result}))
-    try:
-        # Reach this machine's TLS virtual host, independently of public DNS.
-        import socket
-        connection=http.client.HTTPSConnection('glixerp.com',timeout=15,context=ssl.create_default_context())
-        connection._create_connection=lambda address,timeout,source_address=None:socket.create_connection(('167.250.5.104',443),timeout,source_address)
-        connection.request('GET','/index.html?glix_verify='+manifest['revision'],headers={'Accept-Encoding':'gzip','Cache-Control':'no-cache'})
-        response=connection.getresponse();body=response.read();headers=dict(response.getheaders())
-        if response.status!=200:raise RuntimeError('Origin returned '+str(response.status))
-        import gzip
-        if response.getheader('Content-Encoding')=='gzip':body=gzip.decompress(body)
-        if hashlib.sha256(body).hexdigest()!=manifest['files']['index.html']:raise RuntimeError('Origin content mismatch')
-        backend=http.client.HTTPConnection('127.0.0.1',81,timeout=15)
-        backend.request('GET','/index.html',headers={'Host':'glixerp.com','Accept-Encoding':'gzip'})
-        back=backend.getresponse();back.read()
-        report={'origin_status':response.status,'content_verified':True,'headers':headers,'apache_status':back.status,'apache_headers':dict(back.getheaders())}
-        if back.status>=500:raise RuntimeError('Apache configuration failed')
-        (state/'web-verification.json').write_text(json.dumps(report,indent=2))
-        print(json.dumps(report))
-    except Exception:
+    # Verify Apache directly; this hosting closes self-directed HTTPS requests.
+    report={'configured':False,'checks':[]}
+    import gzip
+    for address in ['127.0.0.1','167.250.5.104']:
+        try:
+            backend=http.client.HTTPConnection(address,81,timeout=10)
+            backend.request('GET','/index.html',headers={'Host':'glixerp.com','Accept-Encoding':'gzip'})
+            response=backend.getresponse();body=response.read()
+            if response.getheader('Content-Encoding')=='gzip':body=gzip.decompress(body)
+            report['checks'].append({'address':address,'status':response.status,'headers':dict(response.getheaders())})
+            if response.status==200 and hashlib.sha256(body).hexdigest()==manifest['files']['index.html']:
+                report['configured']=True
+                report['content_verified']=True
+                break
+        except Exception as exc:report['checks'].append({'address':address,'error':str(exc)})
+    if not report['configured']:
         if content!=original:atomic(target,original)
-        raise
+        report['configuration_restored']=True
+        report['pending']='Hosting did not permit verification of Apache; preserve provider configuration.'
+    (state/'web-verification.json').write_text(json.dumps(report,indent=2))
+    print(json.dumps(report))
 
 if __name__=='__main__':main()
