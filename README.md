@@ -50,3 +50,7 @@ Se optimizaron 27 recursos gráficos: 8.914.138 a 2.071.560 bytes (76,76 % menos
 Las secuencias de computadora y teléfono conservan sus dos segundos y se pausan fuera de pantalla, en segundo plano o con movimiento reducido. La sección de solución actual es una imagen fija. La marca usa glix-real-negro.webp y glix-real-blanco.webp. Estas descripciones actualizan las referencias históricas de imágenes anteriores de este documento.
 
 También se incluyen versiones de imágenes de 640 px seleccionadas mediante srcset, fuentes locales con sus licencias OFL, robots.txt y sitemap.xml. Los efectos decorativos se pausan fuera de pantalla.
+
+## Copia automática en cPanel
+
+Además de GitHub Pages, el workflow de validación puede mantener una copia verificada en public_html después de cada push a main. Ver CPANEL-COPY.md para funcionamiento, respaldos y configuración.

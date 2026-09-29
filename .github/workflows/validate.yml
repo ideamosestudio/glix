@@ -16,5 +16,46 @@ jobs:
           persist-credentials: false
       - name: Check security policy and local resources
         run: python3 scripts/check-site.py
+      - name: Test safe cPanel deployment
+        run: python3 scripts/test-cpanel-deploy.py
       - name: Check JavaScript syntax
         run: node --check script.js
+  cpanel-copy:
+    name: Update cPanel copy
+    needs: validate
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && vars.CPANEL_SYNC_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    concurrency:
+      group: glix-cpanel-copy
+      cancel-in-progress: false
+    steps:
+      - name: Synchronize and verify public_html
+        shell: bash
+        env:
+          CPANEL_HOST: ${{ vars.CPANEL_HOST }}
+          CPANEL_USER: ${{ vars.CPANEL_USER }}
+          CPANEL_PORT: ${{ vars.CPANEL_PORT }}
+          CPANEL_SSH_KEY: ${{ secrets.CPANEL_SSH_KEY }}
+          CPANEL_KNOWN_HOSTS: ${{ secrets.CPANEL_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          [[ "$CPANEL_HOST" =~ ^[a-zA-Z0-9.-]+$ ]]
+          [[ "$CPANEL_USER" =~ ^[a-zA-Z0-9_-]+$ ]]
+          [[ "$CPANEL_PORT" =~ ^[0-9]+$ ]]
+          [[ "$GITHUB_SHA" =~ ^[a-f0-9]{40}$ ]]
+          test -n "$CPANEL_SSH_KEY"
+          test -n "$CPANEL_KNOWN_HOSTS"
+          umask 077
+          key_dir=$(mktemp -d "$RUNNER_TEMP/glix-ssh.XXXXXX")
+          trap 'rm -f "$key_dir/key" "$key_dir/known_hosts"; rmdir "$key_dir"' EXIT
+          printf '%s\n' "$CPANEL_SSH_KEY" > "$key_dir/key"
+          printf '%s\n' "$CPANEL_KNOWN_HOSTS" > "$key_dir/known_hosts"
+          ssh -i "$key_dir/key" -p "$CPANEL_PORT" \
+            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=20 \
+            -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$key_dir/known_hosts" \
+            "$CPANEL_USER@$CPANEL_HOST" "glix-sync $GITHUB_SHA"
+          ssh -i "$key_dir/key" -p "$CPANEL_PORT" \
+            -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=20 \
+            -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$key_dir/known_hosts" \
+            "$CPANEL_USER@$CPANEL_HOST" glix-status
