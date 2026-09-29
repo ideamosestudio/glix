@@ -50,4 +50,4 @@ if __name__=='__main__':
     if str(home)!='/home5/glixcpanel':raise SystemExit('This setup is specific to the Glix hosting account')
     install(home,Path(__file__).resolve().parents[1])
     audit(home)
-
+    subprocess.run([os.sys.executable,str(Path(__file__).with_name('configure-cpanel-web.py'))],check=True)

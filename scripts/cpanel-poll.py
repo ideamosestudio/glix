@@ -24,7 +24,9 @@ with (state/'poll.lock').open('a') as lock:
         if not re.fullmatch('[a-f0-9]{40}',latest):raise ValueError('Invalid remote revision')
         manifest=state/'manifest.json'
         current=json.loads(manifest.read_text())['revision'] if manifest.exists() else None
-        if latest==current:raise SystemExit(0)
+        success=state/'poll-last-success.json'
+        last=json.loads(success.read_text()).get('revision') if success.exists() else None
+        if latest==current and latest==last:raise SystemExit(0)
         env=dict(os.environ,SSH_ORIGINAL_COMMAND='glix-sync '+latest)
         result=subprocess.run(['/usr/bin/python3',str(state/'ssh-gateway.py')],env=env,capture_output=True,text=True,timeout=180)
         with log.open('a') as out:

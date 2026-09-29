@@ -133,6 +133,7 @@ def main():
     if git('status','--porcelain','--untracked-files=no'):
         raise SystemExit('Refusing to deploy modified tracked files')
     subprocess.run([os.sys.executable,str(repo/'scripts/test-cpanel-deploy.py')],check=True)
+    subprocess.run([os.sys.executable,str(repo/'scripts/test-cpanel-config.py')],check=True)
     print(json.dumps(deploy(repo,Path.home(),git('rev-parse','HEAD'),git('ls-files','-z').split('\0'),args.dry_run)))
     if not args.dry_run:
         subprocess.run([os.sys.executable,str(repo/'scripts/setup-cpanel.py')],check=True)

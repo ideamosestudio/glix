@@ -17,6 +17,8 @@ jobs:
       - name: Check security policy and local resources
         run: python3 scripts/check-site.py
       - name: Test safe cPanel deployment
-        run: python3 scripts/test-cpanel-deploy.py
+        run: |
+          python3 scripts/test-cpanel-deploy.py
+          python3 scripts/test-cpanel-config.py
       - name: Check JavaScript syntax
         run: node --check script.js
