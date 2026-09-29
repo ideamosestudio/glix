@@ -1,27 +1,21 @@
 # Copia automática en cPanel
 
-La web pública continúa en GitHub Pages. Este mecanismo mantiene una segunda copia de los archivos del sitio en `/home5/glixcpanel/public_html`.
+El servidor consulta `main` cada minuto y actualiza `/home5/glixcpanel/public_html` cuando encuentra una versión nueva. No depende de una computadora encendida ni de conexiones SSH entrantes desde GitHub Actions.
 
-- Repositorio administrado por cPanel: `/home5/glixcpanel/repositories/glix`.
-- Origen: `https://github.com/ideamosestudio/glix.git`, rama `main`.
-- Cada push a main ejecuta las validaciones y después el job **Update cPanel copy**. También se puede ejecutar manualmente el workflow **Validate website** sobre main.
-- La copia no depende de que una computadora personal esté encendida.
-- Solo se despliegan páginas HTML, CSS, JavaScript, iconos, robots.txt, sitemap.xml y recursos admitidos bajo assets. No se copian `.git`, workflows, scripts operativos ni documentación interna.
-- Se conservan `.htaccess`, `.user.ini`, `php.ini`, `.well-known`, `cgi-bin` y archivos ajenos al sitio. Los archivos eliminados del repositorio solo se retiran si el manifiesto privado los identifica como gestionados anteriormente; si fueron modificados manualmente se detiene el despliegue.
-- Los archivos sustituidos o retirados se respaldan en `/home5/glixcpanel/.glix-mirror/backups`. No se purgan automáticamente: revisar el espacio ocupado periódicamente.
-- El manifiesto privado registra el commit y SHA-256 de cada archivo. La copia y el estado final se verifican por contenido.
-- Se usan bloqueos contra ejecuciones simultáneas y reemplazos atómicos por archivo. Si una operación falla durante la copia, se intenta restaurar lo ya cambiado. No es un cambio atómico del sitio completo ni una protección contra caída total del servidor.
-- La clave dedicada de GitHub solo permite `glix-sync <commit>`, `glix-dry-run <commit>` y `glix-status`. No sirve como consola general, túnel ni SFTP una vez restringida.
+- Repositorio cPanel: `/home5/glixcpanel/repositories/glix`.
+- Origen: `https://github.com/ideamosestudio/glix.git`.
+- Tarea visible en **cPanel → Trabajos de cron**, identificada con `# glix-website-mirror`.
+- Se ejecutan las comprobaciones de recursos, CSP y pruebas de despliegue antes de copiar. Actions añade la validación de sintaxis JavaScript. El servidor no espera el estado de Actions.
+- Un bloqueo impide dos consultas simultáneas. Se despliega el último commit de main; varios cambios rápidos pueden agruparse.
+- Estado privado: `.glix-mirror/manifest.json`, con commit y hash SHA-256 de cada archivo. `.glix-mirror/poll-last-success.json` registra la última actualización desde cron.
+- Diagnóstico: `.glix-mirror/poll.log` y `poll.previous.log`, con rotación a 256 KiB. No están dentro de public_html.
+- Solo se publican HTML, CSS, JavaScript, iconos, robots.txt, sitemap.xml y recursos del sitio. No se copian Git, scripts operativos ni documentación.
+- Se preservan archivos ajenos, configuración PHP, correo y DNS. Solo se retiran archivos que el manifiesto identifica como propios y que no fueron modificados externamente.
+- Los archivos reemplazados se respaldan en `.glix-mirror/backups`; no se purgan automáticamente.
+- Reemplazos atómicos por archivo y restauración ante errores de copia; no es una transacción atómica del sitio completo ni protege frente a caída del servidor.
 
-## Configuración de GitHub
+La clave SSH dedicada permite únicamente `glix-sync <commit>`, `glix-dry-run <commit>` y `glix-status`. No es una consola administrativa. Los secretos SSH ya no son necesarios en GitHub para esta modalidad.
 
-Variables: `CPANEL_HOST`, `CPANEL_PORT`, `CPANEL_USER`, `CPANEL_SYNC_ENABLED=true`.
-Secretos: `CPANEL_SSH_KEY` y `CPANEL_KNOWN_HOSTS`. La clave privada no está en el repositorio. La huella del servidor está fijada; no se acepta automáticamente un cambio de clave.
+`.cpanel.yml` permite una copia manual desde Control de versión de Git. La instalación conserva los demás trabajos de cron. Para pausar la sincronización, retirar su línea de cron y no ejecutar otro despliegue manual, que reinstala la tarea.
 
-Para pausar solo esta copia, cambiar `CPANEL_SYNC_ENABLED` a `false`. GitHub Pages continúa funcionando de manera independiente.
-
-## cPanel
-
-El repositorio figura como **glix** en Control de versión de Git. `.cpanel.yml` permite también el despliegue manual desde esa interfaz. No editar su copia de trabajo a mano: GitHub es el origen de los cambios. Si cambia el script de acceso restringido, actualizar también su instalación privada en `.glix-mirror/ssh-gateway.py` desde una sesión administrativa independiente.
-
-No se modifican DNS, MX, correo ni configuración PHP del hosting.
+La publicación principal permanece independiente; esta configuración no cambia el destino del dominio ni el correo.
