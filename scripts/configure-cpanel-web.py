@@ -73,7 +73,7 @@ def main():
     for address in ['127.0.0.1','167.250.5.104']:
         try:
             backend=http.client.HTTPConnection(address,81,timeout=10)
-            backend.request('GET','/index.html',headers={'Host':'glixerp.com','Accept-Encoding':'gzip'})
+            backend.request('GET','/index.html',headers={'Host':'glixerp.com','Accept-Encoding':'gzip','X-Forwarded-Proto':'https'})
             response=backend.getresponse();body=response.read()
             if response.getheader('Content-Encoding')=='gzip':body=gzip.decompress(body)
             report['checks'].append({'address':address,'status':response.status,'headers':dict(response.getheaders())})
