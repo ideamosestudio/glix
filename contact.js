@@ -1,6 +1,11 @@
 (() => {
   const form = document.querySelector('#contact-form');
   if (!form) return;
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(entries => {
+      document.body.classList.toggle('contact-active', entries[0].isIntersecting);
+    }).observe(form.closest('.contact'));
+  }
   const endpoint = 'https://mail.glixerp.com/api/glix-contact.php';
   const button = form.querySelector('button[type="submit"]');
   const label = button.querySelector('span');
