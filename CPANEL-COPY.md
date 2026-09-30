@@ -1,30 +1,30 @@
-# Copia automÃƒÂ¡tica en cPanel
+# Copia automática en cPanel
 
-El servidor consulta `main` cada minuto y actualiza `/home5/glixcpanel/public_html` cuando encuentra una versiÃƒÂ³n nueva. No depende de una computadora encendida ni de conexiones SSH entrantes desde GitHub Actions.
+El servidor consulta `main` cada minuto y actualiza `/home5/glixcpanel/public_html` cuando encuentra una versión nueva. No depende de una computadora encendida ni de conexiones SSH entrantes desde GitHub Actions.
 
 - Repositorio cPanel: `/home5/glixcpanel/repositories/glix`.
 - Origen: `https://github.com/ideamosestudio/glix.git`.
-- Tarea visible en **cPanel Ã¢â€ â€™ Trabajos de cron**, identificada con `# glix-website-mirror`.
-- Se ejecutan las comprobaciones de recursos, CSP y pruebas de despliegue antes de copiar. Actions aÃƒÂ±ade la validaciÃƒÂ³n de sintaxis JavaScript. El servidor no espera el estado de Actions.
-- Un bloqueo impide dos consultas simultÃƒÂ¡neas. Se despliega el ÃƒÂºltimo commit de main; varios cambios rÃƒÂ¡pidos pueden agruparse.
-- Estado privado: `.glix-mirror/manifest.json`, con commit y hash SHA-256 de cada archivo. `.glix-mirror/poll-last-success.json` registra la ÃƒÂºltima actualizaciÃƒÂ³n desde cron.
-- DiagnÃƒÂ³stico: `.glix-mirror/poll.log` y `poll.previous.log`, con rotaciÃƒÂ³n a 256 KiB. No estÃƒÂ¡n dentro de public_html.
-- Solo se publican HTML, CSS, JavaScript, iconos, robots.txt, sitemap.xml y recursos del sitio. No se copian Git, scripts operativos ni documentaciÃƒÂ³n.
-- Se preservan archivos ajenos, configuraciÃƒÂ³n PHP, correo y DNS. Solo se retiran archivos que el manifiesto identifica como propios y que no fueron modificados externamente.
-- Los archivos reemplazados se respaldan en `.glix-mirror/backups`; no se purgan automÃƒÂ¡ticamente.
-- Reemplazos atÃƒÂ³micos por archivo y restauraciÃƒÂ³n ante errores de copia; no es una transacciÃƒÂ³n atÃƒÂ³mica del sitio completo ni protege frente a caÃƒÂ­da del servidor.
+- Tarea visible en **cPanel â†’ Trabajos de cron**, identificada con `# glix-website-mirror`.
+- Se ejecutan las comprobaciones de recursos, CSP y pruebas de despliegue antes de copiar. Actions añade la validación de sintaxis JavaScript. El servidor no espera el estado de Actions.
+- Un bloqueo impide dos consultas simultáneas. Se despliega el último commit de main; varios cambios rápidos pueden agruparse.
+- Estado privado: `.glix-mirror/manifest.json`, con commit y hash SHA-256 de cada archivo. `.glix-mirror/poll-last-success.json` registra la última actualización desde cron.
+- Diagnóstico: `.glix-mirror/poll.log` y `poll.previous.log`, con rotación a 256 KiB. No están dentro de public_html.
+- Solo se publican HTML, CSS, JavaScript, iconos, robots.txt, sitemap.xml y recursos del sitio. No se copian Git, scripts operativos ni documentación.
+- Se preservan archivos ajenos, configuración PHP, correo y DNS. Solo se retiran archivos que el manifiesto identifica como propios y que no fueron modificados externamente.
+- Los archivos reemplazados se respaldan en `.glix-mirror/backups`; no se purgan automáticamente.
+- Reemplazos atómicos por archivo y restauración ante errores de copia; no es una transacción atómica del sitio completo ni protege frente a caída del servidor.
 
-La clave SSH dedicada permite ÃƒÂºnicamente `glix-sync <commit>`, `glix-dry-run <commit>` y `glix-status`. No es una consola administrativa. Los secretos SSH ya no son necesarios en GitHub para esta modalidad.
+La clave SSH dedicada permite únicamente `glix-sync <commit>`, `glix-dry-run <commit>` y `glix-status`. No es una consola administrativa. Los secretos SSH ya no son necesarios en GitHub para esta modalidad.
 
-`.cpanel.yml` permite una copia manual desde Control de versiÃƒÂ³n de Git. La instalaciÃƒÂ³n conserva los demÃƒÂ¡s trabajos de cron. Para pausar la sincronizaciÃƒÂ³n, retirar su lÃƒÂ­nea de cron y no ejecutar otro despliegue manual, que reinstala la tarea.
+`.cpanel.yml` permite una copia manual desde Control de versión de Git. La instalación conserva los demás trabajos de cron. Para pausar la sincronización, retirar su línea de cron y no ejecutar otro despliegue manual, que reinstala la tarea.
 
-La publicaciÃƒÂ³n principal permanece independiente; esta configuraciÃƒÂ³n no cambia el destino del dominio ni el correo.
+La publicación principal permanece independiente; esta configuración no cambia el destino del dominio ni el correo.
 
 ## Ajustes de la copia web
 
-Un bloque identificado en `.htaccess` aÃ±ade cabeceras de seguridad, cachÃ© de imÃ¡genes/fuentes por un dÃ­a y compresiÃ³n de texto Ãºnicamente para las rutas gestionadas por el sitio. HTML, CSS y JavaScript requieren revalidaciÃ³n para recibir actualizaciones. Se guarda una copia privada de la configuraciÃ³n anterior y se comprueba la respuesta del servidor; ante un error se restaura el archivo anterior. Se preservan las directivas del proveedor. No se cambian lÃ­mites PHP ni se activa HSTS para otros subdominios.
+Un bloque identificado en `.htaccess` añade cabeceras de seguridad, caché de imágenes/fuentes por un día y compresión de texto únicamente para las rutas gestionadas por el sitio. HTML, CSS y JavaScript requieren revalidación para recibir actualizaciones. Se guarda una copia privada de la configuración anterior y se comprueba la respuesta del servidor; ante un error se restaura el archivo anterior. Se preservan las directivas del proveedor. No se cambian límites PHP ni se activa HSTS para otros subdominios.
 
-Referencias de implementaciÃ³n: [cron en cPanel](https://docs.cpanel.net/knowledge-base/web-services/guide-to-git-set-up-deployment-cron-jobs/), [cabeceras Apache](https://httpd.apache.org/docs/2.4/mod/mod_headers.html) y [compresiÃ³n Apache](https://httpd.apache.org/docs/2.4/mod/mod_deflate.html).
+Referencias de implementación: [cron en cPanel](https://docs.cpanel.net/knowledge-base/web-services/guide-to-git-set-up-deployment-cron-jobs/), [cabeceras Apache](https://httpd.apache.org/docs/2.4/mod/mod_headers.html) y [compresión Apache](https://httpd.apache.org/docs/2.4/mod/mod_deflate.html).
 
 ## Verificación del 30/09/2026
 
