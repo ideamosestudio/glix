@@ -25,3 +25,7 @@ Se retiraron 40 imágenes originales o antiguas sin referencias (20.183.062 byte
 ## Seguridad y alojamiento
 
 Ver [SECURITY.md](SECURITY.md). La web no contiene el sistema ERP, cuentas de usuarios ni una base de datos. La publicación principal y la copia en cPanel tienen configuraciones de alojamiento independientes. Los cambios del sitio no modifican DNS ni correo.
+
+## Contacto
+
+Las cinco páginas comparten `contact.css` y `contact.js`. El formulario entrega consultas a info@glixerp.com mediante cPanel. Requiere PHP únicamente en el servidor de envío, no en la publicación estática. Los datos de muestra de las pruebas no representan clientes reales. Ver SECURITY.md para validación, antispam y límites.

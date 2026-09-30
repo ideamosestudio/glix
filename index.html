@@ -2,7 +2,7 @@
 <html lang="es-AR">
 <head>
   <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self' https://mail.glixerp.com; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
@@ -13,14 +13,15 @@
 
   <link rel="stylesheet" href="assets/fonts/fonts.css">
   <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="enhancements.css">
-<link rel="stylesheet" href="design-system.css?v=26"></head>
+<link rel="stylesheet" href="design-system.css?v=26"><link rel="stylesheet" href="contact.css?v=1">
+</head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
   <header class="site-header">
     <div class="header-inner wrap">
       <a class="brand" href="#inicio" aria-label="GLIX, ir al inicio"><img class="logo-dark" src="assets/brand/glix-real-negro.webp" alt="" width="942" height="420" decoding="async"><img class="logo-light" src="assets/brand/glix-real-blanco.webp" alt="" width="942" height="420" decoding="async"></a>
       <button class="menu-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" aria-label="Abrir menú"><span></span><span></span></button>
-      <nav id="primary-nav" class="primary-nav" aria-label="Navegación principal"><a href="index.html" aria-current="page">Inicio</a><a href="transporte.html">Transporte</a><a href="proveedores.html">Proveedores</a><a href="recursos-humanos.html">Recursos humanos</a><a href="ventas-mobile.html">Ventas móvil</a><a href="https://wa.me/5491158305425?text=Hola%2C%20quiero%20hablar%20sobre%20GLIX." target="_blank" rel="noopener noreferrer" class="nav-contact tic-button">Hablemos <span aria-hidden="true">↗</span></a></nav>
+      <nav id="primary-nav" class="primary-nav" aria-label="Navegación principal"><a href="index.html" aria-current="page">Inicio</a><a href="transporte.html">Transporte</a><a href="proveedores.html">Proveedores</a><a href="recursos-humanos.html">Recursos humanos</a><a href="ventas-mobile.html">Ventas móvil</a><a href="#contacto" class="nav-contact tic-button">Hablemos <span aria-hidden="true">↗</span></a></nav>
     </div>
   </header>
 
@@ -75,9 +76,44 @@
 
     <section class="feature-band sales-feature" id="ventas-conectadas"><div class="wrap feature-inner"><div class="frame-sequence phone-sequence" data-frame-sequence data-interval="2000" role="img" aria-label="App móvil GLIX: pantalla de bienvenida e inicio de sesión"><img class="is-active" src="assets/gallery/phone-001.webp" alt="" width="453" height="1080" decoding="async" loading="lazy"><img src="assets/gallery/phone-002.webp" alt="" width="453" height="1080" decoding="async" loading="lazy"></div><div class="sales-copy"><img class="band-logo" src="assets/brand/glix-real-negro.webp" alt="Logo GLIX" width="942" height="420" decoding="async"><span class="band-kicker">GESTIÓN EN MOVIMIENTO</span><h2>Tu equipo de ventas también está conectado.</h2><p>La app móvil de GLIX permite dar de alta clientes, geolocalizarlos y vender con stock en línea. El equipo puede consultar saldos e historial de pedidos durante su trabajo en campo.</p><div class="feature-actions"><a class="tic-button" href="https://wa.me/5491158305425?text=Hola%2C%20quiero%20hablar%20con%20un%20experto%20sobre%20GLIX." target="_blank" rel="noopener noreferrer">Contacta a un experto <span aria-hidden="true">↗</span></a><a class="tic-button feature-secondary" href="https://wa.me/5491158305425?text=Hola%2C%20quiero%20charlar%20sobre%20la%20app%20m%C3%B3vil%20de%20ventas%20de%20GLIX." target="_blank" rel="noopener noreferrer">Consultar app <span aria-hidden="true">↗</span></a></div></div></div></section>
 
-    <section class="contact section-pad" id="contacto"><div class="wrap contact-grid"><div><div class="eyebrow"><span class="eyebrow-line"></span> HABLEMOS</div><h2>Contanos cómo funciona tu empresa<span class="period">.</span></h2><p>Podemos mostrarte cómo GLIX acompaña tus procesos de gestión.</p><a class="tic-button" href="https://wa.me/5491158305425?text=Hola%2C%20quiero%20contactarme%20con%20GLIX." target="_blank" rel="noopener noreferrer">Contactar GLIX <span aria-hidden="true">↗</span></a></div><div class="contact-details"><div><span>EMAIL</span><a href="mailto:info@glixerp.com">info@glixerp.com</a></div><div><span>TELÉFONO / WHATSAPP</span><a href="https://wa.me/5491158305425" target="_blank" rel="noopener noreferrer">+54 9 11 5830-5425 ↗</a></div><div><span>DIRECCIÓN</span><address>Ruta Provincial N.º 24, entre Moliere y Conscripto Bernardi<br>Cuartel V, Moreno, Provincia de Buenos Aires</address></div><div><span>HORARIO</span><p>9:00 a 18:00 h</p></div></div></div></section>
+    <section class="contact contact-upgrade section-pad" id="contacto" aria-labelledby="contact-title">
+  <div class="wrap contact-layout">
+    <div class="contact-story"><div class="contact-lead">
+      <div class="eyebrow"><span class="eyebrow-line"></span> HABLEMOS DE TU EMPRESA</div>
+      <h2 id="contact-title">Tu próxima etapa<br>empieza con una <span class="contact-accent">conversación.</span></h2>
+      <p class="contact-intro">Contanos qué querés mejorar. Te ayudamos a descubrir cómo GLIX puede conectar y simplificar tu operación.</p>
+      <a class="contact-whatsapp" href="https://wa.me/5491158305425?text=Hola%2C%20quiero%20conocer%20GLIX." target="_blank" rel="noopener noreferrer">¿Preferís hablar por WhatsApp? <span aria-hidden="true">↗</span></a>
+      </div><div class="contact-direct">
+        <div><span class="contact-label">ESCRIBINOS</span><a href="mailto:info@glixerp.com">info@glixerp.com <span aria-hidden="true">↗</span></a></div>
+        <div><span class="contact-label">LLAMANOS</span><a href="tel:+5491158305425">+54 9 11 5830-5425</a></div>
+      </div>
+      <div class="contact-location"><span class="contact-label">CERCA DE TU EMPRESA</span><address>Ruta Provincial N.º 24, entre Moliere y Conscripto Bernardi.<br>Cuartel V, Moreno, Provincia de Buenos Aires.</address><span class="contact-hours">Horario de atención · 9:00 a 18:00 h</span></div>
+    </div>
+    <div class="contact-form-card">
+      <div class="contact-card-top"><span class="contact-badge"><span aria-hidden="true"></span> CONTACTO COMERCIAL</span><span class="contact-card-mark" aria-hidden="true">↗</span></div>
+      <h3>Contanos qué necesitás.</h3>
+      <p class="contact-card-description">Completá el formulario y conversemos sobre tu empresa.</p>
+      <form id="contact-form" class="contact-form" action="https://mail.glixerp.com/api/glix-contact.php" method="post">
+        <div class="contact-fields">
+          <div class="contact-field"><label for="contact-name">Nombre y apellido <span aria-hidden="true">*</span></label><input id="contact-name" name="name" autocomplete="name" placeholder="Tu nombre" required minlength="2" maxlength="80"></div>
+          <div class="contact-field"><label for="contact-company">Empresa <span aria-hidden="true">*</span></label><input id="contact-company" name="company" autocomplete="organization" placeholder="Nombre de tu empresa" required minlength="2" maxlength="120"></div>
+          <div class="contact-field"><label for="contact-email">Email <span aria-hidden="true">*</span></label><input id="contact-email" name="email" type="email" autocomplete="email" placeholder="nombre@empresa.com" required maxlength="254"></div>
+          <div class="contact-field"><label for="contact-phone">Teléfono <span class="field-optional">(opcional)</span></label><input id="contact-phone" name="phone" type="tel" autocomplete="tel" placeholder="Código de área + número" maxlength="40"></div>
+          <div class="contact-field contact-field-wide"><label for="contact-interest">¿Qué te gustaría mejorar? <span aria-hidden="true">*</span></label><select id="contact-interest" name="interest" required><option value="">Elegí un área de interés</option><option value="integral">La gestión integral de mi empresa</option><option value="transporte">Transporte y liquidación</option><option value="proveedores">Compras y proveedores</option><option value="personas">Recursos humanos</option><option value="ventas">Ventas y operación en campo</option><option value="consulta">Otra consulta</option></select></div>
+          <div class="contact-field contact-field-wide"><label for="contact-message">Tu mensaje <span aria-hidden="true">*</span></label><textarea id="contact-message" name="message" rows="3" placeholder="Contanos brevemente qué necesitás y cómo trabajan hoy." required minlength="10" maxlength="2000"></textarea></div>
+        </div>
+        <div class="contact-trap" aria-hidden="true"><label for="contact-website">Dejar vacío</label><input id="contact-website" name="website" tabindex="-1" autocomplete="off"></div>
+        <button class="contact-submit" type="submit" disabled><span>Enviar consulta</span><span class="contact-submit-arrow" aria-hidden="true">↗</span></button>
+        <p class="contact-privacy">Los campos con * son obligatorios. Usaremos tus datos únicamente para responder tu consulta.</p>
+        <div class="contact-status" role="status" aria-live="polite"></div>
+        <noscript><p>Para enviar el formulario, activá JavaScript o escribinos a <a href="mailto:info@glixerp.com">info@glixerp.com</a>.</p></noscript>
+      </form>
+      <div class="contact-success" hidden tabindex="-1"><span class="contact-success-check" aria-hidden="true">✓</span><h3>Gracias por escribirnos.</h3><p>Tu consulta fue enviada. El equipo de GLIX te responderá por email.</p><button class="contact-another" type="button">Enviar otra consulta <span aria-hidden="true">↗</span></button></div>
+    </div>
+  </div>
+</section>
   </main>
   <footer class="site-footer"><div class="wrap footer-inner"><a href="#inicio" class="footer-brand" aria-label="GLIX, volver al inicio"><img src="assets/brand/glix-real-negro.webp" alt="" width="942" height="420" decoding="async"></a><p>Software de gestión para empresas.</p><span>© <span id="year">2026</span> GLIX</span><a href="mailto:info@glixerp.com">info@glixerp.com ↗</a></div></footer>
   <a class="whatsapp-float" href="https://wa.me/5491158305425?text=Hola%2C%20quiero%20conocer%20GLIX." target="_blank" rel="noopener noreferrer" aria-label="Escribir a GLIX por WhatsApp al +54 9 11 5830-5425"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2.5A13.4 13.4 0 0 0 4.4 22.6L2.5 29.5l7.1-1.9A13.5 13.5 0 1 0 16 2.5Zm0 24.5a11 11 0 0 1-5.6-1.5l-.4-.2-4.2 1.1 1.1-4.1-.3-.4A11.1 11.1 0 1 1 16 27Zm6.1-8.3c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.4.3-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.7-2-1.9-2.3-.2-.3 0-.5.2-.7l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.8-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7s1.2 3.1 1.4 3.3c.2.2 2.4 3.7 5.8 5.2.8.3 1.4.5 1.9.6.8.3 1.5.2 2.1.1.6-.1 1.9-.8 2.1-1.6.3-.8.3-1.5.2-1.6-.1-.2-.3-.3-.6-.5Z"/></svg></a><script src="script.js?v=4" defer></script>
-</body>
+<script src="contact.js?v=1" defer></script></body>
 </html>

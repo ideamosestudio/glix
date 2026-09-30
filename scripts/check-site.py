@@ -29,9 +29,11 @@ class Page(HTMLParser):
         if tag == 'meta' and a.get('name') == 'referrer':
             self.referrer = a.get('content') == 'strict-origin-when-cross-origin'
         if tag in ('link', 'script', 'img'): self.resource_seen = True
-        if tag in ('base', 'iframe', 'object', 'embed', 'form', 'style'):
+        if tag in ('base', 'iframe', 'object', 'embed', 'style'):
             self.fail('unexpected active element: ' + tag)
         if any(k == 'style' or k.startswith('on') for k in a): self.fail('inline style/event handler')
+        if tag == 'form' and (a.get('action') != 'https://mail.glixerp.com/api/glix-contact.php' or a.get('method') != 'post'):
+            self.fail('unexpected form destination')
         if tag == 'script':
             if not a.get('src') or urlsplit(a['src']).netloc: self.fail('scripts must be local files')
             if 'defer' not in a: self.fail('script must defer execution')
@@ -56,7 +58,7 @@ for path in ROOT.glob('*.html'):
     page = Page(path)
     page.feed(path.read_text(encoding='utf-8-sig'))
     pages[path.name] = page
-    required = ("default-src 'none'", "script-src 'self'", "object-src 'none'", "base-uri 'none'", "form-action 'none'", "connect-src 'self'", "frame-src 'none'")
+    required = ("default-src 'none'", "script-src 'self'", "object-src 'none'", "base-uri 'none'", "form-action 'none'", "connect-src 'self' https://mail.glixerp.com", "frame-src 'none'")
     if not page.csp or any(part not in page.csp.split('; ') for part in required): page.fail('missing restrictive CSP')
     if page.csp and ('unsafe-inline' in page.csp or 'unsafe-eval' in page.csp): page.fail('unsafe CSP exception')
     if not page.referrer: page.fail('missing referrer policy')
@@ -71,7 +73,8 @@ for page in pages.values():
 for css in ROOT.rglob('*.css'):
     for ref in re.findall(r'url\([\"\']?([^\)\"\']+)', css.read_text(encoding='utf-8')):
         if not (css.parent / urlsplit(ref).path).is_file(): errors.append(f'{css.name}: missing CSS resource {ref}')
-script = (ROOT / 'script.js').read_text(encoding='utf-8')
-if re.search(r'\beval\s*\(|\.innerHTML\s*=|document\.write\s*\(', script): errors.append('unsafe JavaScript sink')
+for name in ['script.js','contact.js']:
+    script = (ROOT / name).read_text(encoding='utf-8')
+    if re.search(r'\beval\s*\(|\.innerHTML\s*=|document\.write\s*\(', script): errors.append(name+': unsafe JavaScript sink')
 if errors: raise SystemExit('\n'.join(errors))
 print(f'PASS: {len(pages)} pages; CSP, links, anchors, image dimensions, CSS resources and JavaScript sinks.')

@@ -33,3 +33,7 @@ Se comprobó una actualización iniciada por cron, sin enviar una orden de despl
 El proxy HTTPS del hosting y Apache entregan las cabeceras configuradas. La comprobación interna usa el virtual host en el puerto 81 con X-Forwarded-Proto: https, porque las conexiones HTTP directas se redirigen a HTTPS. El contenido se verifica por SHA-256; ante una comprobación fallida se restaura la configuración anterior y se deja constancia en `.glix-mirror/web-verification.json`. La copia del sitio continúa disponible.
 
 Nginx entrega gzip; imágenes/fuentes devuelven max-age=86400 y HTML devuelve no-cache. La caché Nginx se limpia mediante la API de cPanel después de desplegar. Las directivas originales de PHP se conservan.
+
+## Servicio de contacto
+
+El despliegue valida PHP y sus pruebas antes de instalar el servicio. Solo se admite `api/glix-contact.php` como endpoint PHP del sitio. La lógica, clave y límites se instalan fuera de public_html. Las reglas de caché estática excluyen `/api/`; el endpoint responde no-store. No se modifica el CNAME del soporte Zammad.

@@ -23,6 +23,7 @@ jobs:
       - name: Check JavaScript syntax
         run: |
           node --check script.js
+          node --check contact.js
       - name: Validate contact handler without sending mail
         run: |
           php -l api/glix-contact.php

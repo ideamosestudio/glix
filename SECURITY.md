@@ -7,7 +7,7 @@ RevisiÃ³n: 29/09/2026. Alcance: las cinco pÃ¡ginas de la web comercial. El s
 - HTTPS obligatorio ya habilitado en GitHub Pages.
 - CSP al principio de cada pÃ¡gina: scripts e imÃ¡genes locales; CSS y fuentes locales. Bloquea cÃ³digo inline, eval, objetos, iframes, conexiones programÃ¡ticas externas, cambios de URL base y formularios.
 - Referrer Policy y enlaces externos con noopener/noreferrer.
-- Sin dependencias JavaScript de terceros, backend, login ni base de datos.
+- Sin dependencias JavaScript de terceros, login ni base de datos. El formulario tiene un endpoint PHP exclusivo en cPanel.
 - ValidaciÃ³n de recursos, anclas, CSP, imÃ¡genes y sintaxis JS en GitHub Actions. AcciÃ³n fijada a commit, permisos mÃ­nimos y Dependabot mensual.
 - Secuencias con intervalos acotados, pausa fuera de pantalla y en segundo plano, movimiento reducido dinÃ¡mico y conservaciÃ³n del cuadro actual ante un fallo de carga.
 
@@ -41,3 +41,15 @@ Es una revisiÃ³n acotada, no una certificaciÃ³n de cumplimiento ni una audit
 Ejecutar `python scripts/check-site.py` y `node --check script.js`. Revisar mÃ³vil/escritorio antes de publicar y medir rendimiento pÃºblico despuÃ©s. Revisar propuestas de Dependabot sin fusionar cambios mayores automÃ¡ticamente. No guardar secretos en archivos pÃºblicos ni en Git.
 
 Referencias: https://top10.owasp.org/2025/ y https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP
+
+## Formulario comercial
+
+Endpoint exclusivo: `https://mail.glixerp.com/api/glix-contact.php`, destinatario fijo `info@glixerp.com`. El alias mail ya apunta al cPanel; no se crean registros DNS ni se utiliza el servicio Zammad.
+
+Validación del lado del servidor, rechazo de saltos de línea en cabeceras, CORS con orígenes explícitos, JSON y tamaño acotados, honeypot, token HMAC ligado a IP con espera mínima y vencimiento, bloqueo de concurrencia y límites de 5 intentos por IP/hora y 100 globales/hora. Reintentos con el mismo token y contenido no duplican envíos aceptados. Los límites son una protección básica; no sustituyen un servicio especializado ante ataques distribuidos.
+
+Clave, lógica y estado del servicio en `/home5/glixcpanel/.glix-contact`, fuera de public_html. El estado conserva hashes y tiempos, no el contenido de consultas; se poda al procesar solicitudes. El contenido se entrega exclusivamente al transporte de correo del hosting. No hay contraseñas SMTP en el repositorio. `mail()` confirma aceptación por el transporte, no garantiza recepción final.
+
+Pruebas: `php server/test-contact.php` usa un transporte simulado y no envía correos. La vista se prueba con respuestas simuladas de error y éxito. La prueba real necesita autorización expresa del titular.
+
+Registro del soporte confirmado por DNS: `soporte.glixerp.com CNAME servidor.yamanil.com`. Se preserva para Zammad.

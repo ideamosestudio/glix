@@ -2,6 +2,7 @@
 """Install the contact handler privately and validate it without sending mail."""
 from pathlib import Path
 import os
+import json
 import secrets
 import shutil
 import subprocess
@@ -33,3 +34,10 @@ try:
 finally:
     if os.path.exists(tmp):os.unlink(tmp)
 print('Contact handler installed privately; no email was sent during setup.')
+
+result=subprocess.run(['/usr/local/cpanel/bin/uapi','--output=json','Email','list_pops','domain=glixerp.com'],capture_output=True,text=True,timeout=30)
+try:
+    response=json.loads(result.stdout).get('result',{})
+    found=any(row.get('email')=='info@glixerp.com' for row in (response.get('data') or [])) if response.get('status')==1 else None
+    print(json.dumps({'recipient':'info@glixerp.com','local_mailbox_found':found}))
+except (ValueError,AttributeError,TypeError):print('Mailbox availability could not be checked automatically.')
