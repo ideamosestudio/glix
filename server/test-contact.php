@@ -8,7 +8,7 @@ function expect(bool $value,string $message):void {if(!$value)throw new RuntimeE
 $now=1700000100;$ip='192.0.2.10';$origin='https://glixerp.com';
 $data=['name'=>'Persona de prueba','company'=>'Empresa de prueba','email'=>'persona@example.com','phone'=>'','interest'=>'integral','message'=>'Consulta de validación automatizada.','website'=>'','token'=>glix_token($secret,$ip,$now-3)];
 try {
-    $call=fn($input,$source=$origin)=>glix_process('POST',$source,json_encode($input),$ip,$dir,$send,$now);
+    $call=fn($input,$source='https://glixerp.com')=>glix_process('POST',$source,json_encode($input),$ip,$dir,$send,$now);
     expect($call($data,'https://not-glix.example')[0]===403,'Reject foreign origin');
     $bad=$data;$bad['email']="a@example.com\r\nBcc: other@example.com";expect($call($bad)[0]===422,'Reject header injection');
     $bad=$data;$bad['name']=[];expect($call($bad)[0]===422,'Reject arrays');
