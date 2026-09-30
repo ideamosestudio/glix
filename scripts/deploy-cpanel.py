@@ -23,7 +23,7 @@ def website_file(name):
     suffix=Path(name).suffix.lower()
     return (parts[0]=='assets' and len(parts)>1 and suffix in
             ('.png','.jpg','.jpeg','.webp','.avif','.gif','.svg','.ico','.woff','.woff2','.ttf','.otf','.css','.js','.json','.txt','.pdf','.mp4','.webm')) or (
-        len(parts)==1 and (suffix in ('.html','.css','.js','.png','.svg','.ico') or name in ('robots.txt','sitemap.xml')))
+        len(parts)==1 and (suffix in ('.html','.css','.js','.png','.svg','.ico') or name in ('robots.txt','sitemap.xml','llms.txt')))
 
 
 def safe_path(root,name):

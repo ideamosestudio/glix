@@ -48,14 +48,13 @@ if (!prefersReducedMotion && 'IntersectionObserver' in window) {
     });
   }, { threshold: 0.08, rootMargin: '0px 0px 60px 0px' });
   revealTargets.forEach((target) => {
+    // Keep initial content visible; animate headings reached by scrolling.
+    if (target.getBoundingClientRect().top < window.innerHeight) return;
     target.classList.add('reveal');
     observer.observe(target);
   });
   document.body.classList.add('js-ready');
 }
-
-const year = document.getElementById('year');
-if (year) year.textContent = new Date().getFullYear();
 
 // Only animate visible sequences; stop timers in background tabs and reduced motion.
 const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');

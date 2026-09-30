@@ -20,9 +20,19 @@ try {
     expect($call($data)[0]===200 && $calls===1,'Accept valid request');
     expect($call($data)[0]===200 && $calls===1,'Idempotent retry');
     $changed=$data;$changed['message']='Una consulta diferente con el mismo token.';expect($call($changed)[0]===422,'Reject edited replay');
-    for($i=0;$i<4;$i++){$data['token']=glix_token($secret,$ip,$now-3);expect($call($data)[0]===200,'Within rate limit');}
+    $duplicate=$data;$duplicate['token']=glix_token($secret,$ip,$now-3);
+    expect($call($duplicate)[0]===200 && $calls===1,'Suppress duplicate with fresh token');
+    for($i=0;$i<4;$i++){$data['message']='Consulta de validación automatizada número '.$i;$data['token']=glix_token($secret,$ip,$now-3);expect($call($data)[0]===200,'Within rate limit');}
+    $data['message']='Otra consulta distinta para probar el límite.';
     $data['token']=glix_token($secret,$ip,$now-3);expect($call($data)[0]===429 && $calls===5,'Enforce per-IP limit');
+    $otherIp='192.0.2.30';$crossIp=$data;$crossIp['token']=glix_token($secret,$otherIp,$now-3);
+    expect(glix_process('POST',$origin,json_encode($crossIp),$otherIp,$dir,$send,$now)[0]===429 && $calls===5,'Enforce sender limit across IPs');
+    $sameIp=$data;$sameIp['email']='different@example.com';
+    expect($call($sameIp)[0]===429 && $calls===5,'Enforce IP limit across senders');
+    $data['email']='another@example.com';
     $failure=glix_process('POST',$origin,json_encode(array_merge($data,['token'=>glix_token($secret,'192.0.2.20',$now-3)])),'192.0.2.20',$dir,fn()=>false,$now);
     expect($failure[0]===503,'Do not show success when transport fails');
+    $later=$now+3601;$fresh=$data;$fresh['email']='persona@example.com';$fresh['token']=glix_token($secret,$ip,$later-3);
+    expect(glix_process('POST',$origin,json_encode($fresh),$ip,$dir,$send,$later)[0]===200 && $calls===6,'Expired quotas allow a later legitimate enquiry');
     echo "PASS: contact validation, origin, token, replay, spam limits and failed transport; no real email sent.\n";
 } finally {foreach(['secret','limits.json']as$name)if(is_file($dir.'/'.$name))unlink($dir.'/'.$name);rmdir($dir);}

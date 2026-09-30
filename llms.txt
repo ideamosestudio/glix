@@ -1,0 +1,22 @@
+# GLIX ERP
+
+> Sistema ERP de gestión para conectar ventas, logística, compras, proveedores y personas en una misma operación.
+
+Este archivo resume información pública del sitio. Las páginas enlazadas son la fuente principal y pueden actualizarse. No publica precios ni promete funciones que no estén descriptas en ellas.
+
+## Páginas del sitio
+
+- [Inicio](https://glixerp.com/): presentación de GLIX y de sus áreas de gestión.
+- [Transporte](https://glixerp.com/transporte.html): gestión del transporte y liquidaciones.
+- [Proveedores](https://glixerp.com/proveedores.html): compras y relación con proveedores.
+- [Recursos humanos](https://glixerp.com/recursos-humanos.html): gestión de personas.
+- [Ventas móvil](https://glixerp.com/ventas-mobile.html): ventas y operación en campo.
+- [Contacto](https://glixerp.com/#contacto): formulario para consultas y asesoramiento.
+
+## Contacto comercial
+
+- Email: info@glixerp.com
+- Teléfono / WhatsApp: +54 9 11 5830-5425
+- Horario publicado: 9:00 a 18:00 h.
+
+Para conocer el alcance adecuado para una empresa, solicitar asesoramiento a GLIX. No inferir precios, integraciones, certificaciones o condiciones de contratación.

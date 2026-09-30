@@ -53,6 +53,12 @@ function glix_process(string $method, string $origin, string $raw, string $ip, s
     try {
         $rawState=stream_get_contents($handle);
         $state=$rawState!=='' ? json_decode($rawState,true,32,JSON_THROW_ON_ERROR) : ['clients'=>[], 'global'=>[], 'used'=>[]];
+        $state['emails']=$state['emails']??[];
+        $state['messages']=array_filter($state['messages']??[],fn($t)=>$t>$now-600);
+        foreach ($state['emails'] as $key=>$times) {
+            $times=array_values(array_filter($times,fn($t)=>$t>$now-3600));
+            if ($times) $state['emails'][$key]=$times; else unset($state['emails'][$key]);
+        }
         $state['global']=array_values(array_filter($state['global'],fn($t)=>$t>$now-3600));
         $state['used']=array_filter($state['used'],fn($item)=>$item['time']>$now-7200);
         foreach ($state['clients'] as $key=>$times) {
@@ -65,12 +71,20 @@ function glix_process(string $method, string $origin, string $raw, string $ip, s
         if (isset($state['used'][$id])) {
             return hash_equals($state['used'][$id]['fingerprint'],$fingerprint) ? [200,['ok'=>true]] : [422,['ok'=>false,'message'=>'La consulta cambió. Volvé a presionar Enviar consulta.']];
         }
-        if (count($state['clients'][$client]??[])>=5 || count($state['global'])>=100) return [429,['ok'=>false,'message'=>'Recibimos varias consultas. Esperá un momento o escribinos a info@glixerp.com.']];
+        // Hashes only: limit a sender across IPs and suppress identical re-submissions.
+        $email=hash_hmac('sha256',strtolower($data['email']),$secret);
+        $message=hash_hmac('sha256',json_encode([strtolower($data['email']),$data['name'],$data['company'],$data['phone'],$data['interest'],$data['message']],JSON_THROW_ON_ERROR),$secret);
+        if (isset($state['messages'][$message])) return [200,['ok'=>true]];
+        if (count($state['emails'][$email]??[])>=5 || count($state['clients'][$client]??[])>=5 || count($state['global'])>=100) return [429,['ok'=>false,'message'=>'Recibimos varias consultas. Esperá un momento o escribinos a info@glixerp.com.']];
+        $state['emails'][$email][]=$now;
         $state['clients'][$client][]=$now;
         $state['global'][]=$now;
         $body="Nueva consulta desde la web de GLIX\n\nNombre: ".$data['name']."\nEmpresa: ".$data['company']."\nEmail: ".$data['email']."\nTeléfono: ".($data['phone']?:'No informado')."\nInterés: ".GLIX_TOPICS[$data['interest']]."\n\nMensaje:\n".$data['message']."\n";
         $accepted=$send($data['email'],$body);
-        if ($accepted) $state['used'][$id]=['time'=>$now,'fingerprint'=>$fingerprint];
+        if ($accepted) {
+            $state['used'][$id]=['time'=>$now,'fingerprint'=>$fingerprint];
+            $state['messages'][$message]=$now;
+        }
         rewind($handle);ftruncate($handle,0);
         if (fwrite($handle,json_encode($state,JSON_THROW_ON_ERROR))===false) throw new RuntimeException('Cannot update contact state');
         fflush($handle);

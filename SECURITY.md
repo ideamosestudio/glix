@@ -41,3 +41,8 @@ El proveedor confirmó Zammad mediante `soporte.glixerp.com CNAME servidor.yaman
 Ejecutar `python scripts/check-site.py`, las pruebas de despliegue/configuración cPanel, `node --check script.js`, `node --check contact.js` y `php server/test-contact.php`. Revisar móvil/escritorio y propuestas de Dependabot. No guardar secretos ni información de clientes en Git. Las pruebas reales de envío necesitan autorización explícita.
 
 Es una revisión acotada, no una certificación de cumplimiento ni una auditoría del ERP. Referencias: [OWASP Top 10:2025](https://top10.owasp.org/2025/), [PHP mail](https://www.php.net/manual/en/function.mail.php) y [CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP).
+
+
+### Protección adicional del formulario
+
+Además de los controles de origen, campos, token firmado, tiempo mínimo, honeypot y límites por IP/globales, se limitan a cinco intentos por hora por dirección de email, incluso entre distintas IP. Se guardan identificadores HMAC, no las direcciones en texto. Un mensaje idéntico ya aceptado durante los últimos diez minutos devuelve confirmación sin generar otro correo. Los envíos rechazados por el transporte no se marcan como exitosos. Los registros se depuran bajo bloqueo al procesar solicitudes. Estas barreras reducen el abuso; no garantizan ausencia absoluta de spam. Las pruebas de `server/test-contact.php` usan transporte simulado y nunca envían correo.

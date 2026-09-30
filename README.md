@@ -29,3 +29,16 @@ Ver [SECURITY.md](SECURITY.md). La web no contiene el sistema ERP, cuentas de us
 ## Contacto
 
 Las cinco páginas comparten `contact.css` y `contact.js`. El formulario entrega consultas a info@glixerp.com mediante cPanel. Requiere PHP únicamente en el servidor de envío, no en la publicación estática. Los datos de muestra de las pruebas no representan clientes reales. Ver SECURITY.md para validación, antispam y límites.
+
+
+## SEO, vista previa y rendimiento
+
+Las cinco páginas incluyen URL canónica, metadatos Open Graph y Twitter, y datos estructurados Organization/WebSite/WebPage coherentes con el contenido visible. La imagen compartida está en `assets/social/glix-social-v1.png`. Los datos JSON-LD tienen un hash CSP exacto; al editarlos, actualizar el hash y ejecutar `python scripts/check-site.py`.
+
+El contenido principal está en HTML y no depende de JavaScript para ser leído. `robots.txt` permite rastreo y enlaza el sitemap; `llms.txt` ofrece un resumen público opcional. Ninguno de estos mecanismos garantiza indexación, posicionamiento o citas de sistemas de IA.
+
+Las fuentes principales se precargan desde el propio sitio. Los títulos inicialmente visibles no se ocultan esperando una animación; los títulos de secciones posteriores conservan su aparición al desplazarse. Los fotogramas secundarios de la portada tienen prioridad de descarga baja. Las animaciones siguen respetando movimiento reducido y pausa fuera de pantalla.
+
+El crédito del pie utiliza el logo oficial de Ideamos y enlaza a https://ideamos.com.ar/. El formulario conserva su destino `info@glixerp.com`.
+
+El brillo de los botones anima opacidad en capas independientes para evitar recalcular sombras en cada fotograma, conservando la iluminación y los colores de marca.
