@@ -549,10 +549,9 @@ body .contact p { color: #fff !important; }
 .animation-paused::after { animation-play-state: paused !important; }
 
 /* Agency credit: real brand asset, readable at every breakpoint. */
-.site-footer .ideamos-credit { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 44px; color: #454640; font-size: 14px; line-height: 1.4; flex-wrap: wrap; }
-.ideamos-credit-logo { display: inline-flex; align-items: center; background: #242329; border-radius: 8px; padding: 10px 14px; transition: background-color .2s ease; }
-.ideamos-credit-logo img { display: block; width: 116px; height: auto; }
-.ideamos-credit:hover .ideamos-credit-logo { background: #3e2450; }
-.ideamos-credit > span:last-child { font-size: 18px; }
+.site-footer .ideamos-credit { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 44px; color: #555950; font-size: 12px; line-height: 1.4; flex-wrap: wrap; }
+.ideamos-credit-logo { display: inline-flex; align-items: center; background: none; padding: 0; }
+.ideamos-credit-logo img { display: block; width: 96px; height: auto; filter: brightness(0); opacity: .76; transition: opacity .2s ease; }
+.ideamos-credit:hover .ideamos-credit-logo img { opacity: 1; }
 .site-footer .footer-inner p { color: #555950; }
 @media (max-width: 760px) { .site-footer .ideamos-credit { margin: 4px 0 0; gap: 10px; } }
