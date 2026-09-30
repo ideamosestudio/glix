@@ -229,7 +229,7 @@ html { scroll-padding-top: 90px; }
 }
 /* Pulse opacity on separate layers instead of repainting shadows each frame. */
 .tic-button::before,
-.tic-button::after { content: "" !important; position: absolute; pointer-events: none; border-radius: inherit; z-index: -1; }
+.tic-button::after { content: "" !important; position: absolute; pointer-events: none; border-radius: inherit; z-index: -1; padding: 0; background: none; -webkit-mask: none; mask: none; }
 .tic-button::before { inset: -2px; box-shadow: 0 10px 27px color-mix(in srgb, var(--button-glow) 42%, transparent); animation: button-glow-opacity 3.2s ease-in-out infinite; }
 .tic-button::after { inset: 0; filter: none; background: linear-gradient(110deg, #fff0, #fff4, #fff0); animation: button-light-opacity 4s ease-in-out infinite; }
 @keyframes button-glow-opacity { 0%,100% { opacity: .35; } 50% { opacity: 1; } }
