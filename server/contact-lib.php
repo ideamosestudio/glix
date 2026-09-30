@@ -54,20 +54,23 @@ function glix_process(string $method, string $origin, string $raw, string $ip, s
         $rawState=stream_get_contents($handle);
         $state=$rawState!=='' ? json_decode($rawState,true,32,JSON_THROW_ON_ERROR) : ['clients'=>[], 'global'=>[], 'used'=>[]];
         $state['global']=array_values(array_filter($state['global'],fn($t)=>$t>$now-3600));
-        $state['used']=array_filter($state['used'],fn($t)=>$t>$now-7200);
+        $state['used']=array_filter($state['used'],fn($item)=>$item['time']>$now-7200);
         foreach ($state['clients'] as $key=>$times) {
             $times=array_values(array_filter($times,fn($t)=>$t>$now-3600));
             if ($times) $state['clients'][$key]=$times; else unset($state['clients'][$key]);
         }
         $client=hash_hmac('sha256',$ip,$secret);
         $id=hash('sha256',$data['token']);
-        if (isset($state['used'][$id])) return [200,['ok'=>true]]; // Safe retry after a lost response.
+        $fingerprint=hash('sha256',json_encode(array_diff_key($data,['token'=>true]),JSON_THROW_ON_ERROR));
+        if (isset($state['used'][$id])) {
+            return hash_equals($state['used'][$id]['fingerprint'],$fingerprint) ? [200,['ok'=>true]] : [422,['ok'=>false,'message'=>'La consulta cambió. Volvé a presionar Enviar consulta.']];
+        }
         if (count($state['clients'][$client]??[])>=5 || count($state['global'])>=100) return [429,['ok'=>false,'message'=>'Recibimos varias consultas. Esperá un momento o escribinos a info@glixerp.com.']];
         $state['clients'][$client][]=$now;
         $state['global'][]=$now;
         $body="Nueva consulta desde la web de GLIX\n\nNombre: ".$data['name']."\nEmpresa: ".$data['company']."\nEmail: ".$data['email']."\nTeléfono: ".($data['phone']?:'No informado')."\nInterés: ".GLIX_TOPICS[$data['interest']]."\n\nMensaje:\n".$data['message']."\n";
         $accepted=$send($data['email'],$body);
-        if ($accepted) $state['used'][$id]=$now;
+        if ($accepted) $state['used'][$id]=['time'=>$now,'fingerprint'=>$fingerprint];
         rewind($handle);ftruncate($handle,0);
         if (fwrite($handle,json_encode($state,JSON_THROW_ON_ERROR))===false) throw new RuntimeException('Cannot update contact state');
         fflush($handle);

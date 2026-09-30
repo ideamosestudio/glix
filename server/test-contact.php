@@ -19,6 +19,7 @@ try {
     expect($calls===0,'Invalid requests must not send mail');
     expect($call($data)[0]===200 && $calls===1,'Accept valid request');
     expect($call($data)[0]===200 && $calls===1,'Idempotent retry');
+    $changed=$data;$changed['message']='Una consulta diferente con el mismo token.';expect($call($changed)[0]===422,'Reject edited replay');
     for($i=0;$i<4;$i++){$data['token']=glix_token($secret,$ip,$now-3);expect($call($data)[0]===200,'Within rate limit');}
     $data['token']=glix_token($secret,$ip,$now-3);expect($call($data)[0]===429 && $calls===5,'Enforce per-IP limit');
     $failure=glix_process('POST',$origin,json_encode(array_merge($data,['token'=>glix_token($secret,'192.0.2.20',$now-3)])),'192.0.2.20',$dir,fn()=>false,$now);
