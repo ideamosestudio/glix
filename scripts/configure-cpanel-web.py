@@ -77,7 +77,10 @@ def main():
             response=backend.getresponse();body=response.read()
             if response.getheader('Content-Encoding')=='gzip':body=gzip.decompress(body)
             report['checks'].append({'address':address,'status':response.status,'headers':dict(response.getheaders())})
-            if response.status==200 and hashlib.sha256(body).hexdigest()==manifest['files']['index.html']:
+            if (response.status==200 and hashlib.sha256(body).hexdigest()==manifest['files']['index.html']
+                    and response.getheader('X-Content-Type-Options')=='nosniff'
+                    and response.getheader('X-Frame-Options')=='DENY'
+                    and response.getheader('Cache-Control')=='no-cache'):
                 report['configured']=True
                 report['content_verified']=True
                 break
