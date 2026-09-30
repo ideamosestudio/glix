@@ -21,4 +21,10 @@ jobs:
           python3 scripts/test-cpanel-deploy.py
           python3 scripts/test-cpanel-config.py
       - name: Check JavaScript syntax
-        run: node --check script.js
+        run: |
+          node --check script.js
+          node --check contact.js
+      - name: Validate contact handler without sending mail
+        run: |
+          php -l api/glix-contact.php
+          php server/test-contact.php

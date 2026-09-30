@@ -19,6 +19,7 @@ def website_file(name):
     parts=PurePosixPath(name).parts
     if not parts or name.startswith('/') or '\\' in name or any(p in ('.','..') or p.startswith('.') for p in parts):
         return False
+    if name=='api/glix-contact.php':return True
     suffix=Path(name).suffix.lower()
     return (parts[0]=='assets' and len(parts)>1 and suffix in
             ('.png','.jpg','.jpeg','.webp','.avif','.gif','.svg','.ico','.woff','.woff2','.ttf','.otf','.css','.js','.json','.txt','.pdf','.mp4','.webm')) or (
@@ -134,6 +135,8 @@ def main():
         raise SystemExit('Refusing to deploy modified tracked files')
     subprocess.run([os.sys.executable,str(repo/'scripts/test-cpanel-deploy.py')],check=True)
     subprocess.run([os.sys.executable,str(repo/'scripts/test-cpanel-config.py')],check=True)
+    if not args.dry_run:
+        subprocess.run([os.sys.executable,str(repo/'scripts/setup-contact.py')],check=True)
     print(json.dumps(deploy(repo,Path.home(),git('rev-parse','HEAD'),git('ls-files','-z').split('\0'),args.dry_run)))
     if not args.dry_run:
         subprocess.run([os.sys.executable,str(repo/'scripts/setup-cpanel.py')],check=True)

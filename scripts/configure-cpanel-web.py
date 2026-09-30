@@ -22,6 +22,7 @@ def merge(original,block):
     return original.rstrip('\n')+'\n\n'+block+'\n'
 
 def build(names):
+    names=[name for name in names if not name.startswith('api/')]
     pages=[n for n in names if n.endswith('.html') and '/' not in n]
     text=[n for n in names if n.endswith(('.html','.css','.js','.svg','.txt','.xml'))]
     assets=[n for n in names if n.endswith(('.webp','.png','.woff2'))]
